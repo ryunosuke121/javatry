@@ -24,7 +24,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author ryunosuke.ito
  */
 public class Step01VariableTest extends PlainTestCase {
 
@@ -47,7 +47,12 @@ public class Step01VariableTest extends PlainTestCase {
         String piari = null;
         String dstore = "mai";
         sea = sea + land + piari + ":" + dstore;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => mystic8:mai
+        // mystic8null:maiだった。nullって文字列変換すると"null"になるのか。
+        // ここですね
+        // public static String valueOf(Object obj) {
+        //        return (obj == null) ? "null" : obj.toString();
+        // }
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -56,17 +61,14 @@ public class Step01VariableTest extends PlainTestCase {
         String land = "oneman";
         sea = land;
         land = land + "'s dreams";
-        log(sea); // your answer? => 
+        log(sea); // your answer? => oneman
+        // なんでこうなるかよく知らなかったので調べた
+        // Stringは不変(immutable)でland = land + "'s dreams";の時にlandは新しいStringを指すようになる。
+        // なので、seaはlandの新しい値を指していないのでonemanのまま。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
-    public void test_variable_reassigned_int() {
-        int sea = 94;
-        int land = 415;
-        sea = land;
-        land++;
-        log(sea); // your answer? => 
-    }
+
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_reassigned_BigDecimal() {
@@ -75,7 +77,9 @@ public class Step01VariableTest extends PlainTestCase {
         sea = land;
         sea = land.add(new BigDecimal(1));
         sea.add(new BigDecimal(1));
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 416
+        // addは新しいBigDecimalを返すだけで呼び出し元のBigDecimalは変わらない。
+        // なので、seaはlandの新しい値を指していないので416のまま。
     }
 
     // ===================================================================================
@@ -89,19 +93,20 @@ public class Step01VariableTest extends PlainTestCase {
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_String() {
         String sea = instanceBroadway;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_int() {
         int sea = instanceDockside;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 0
+        // C言語だとゴミ値が入るけど、javaはちゃんと0で初期化されるんだなあ
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_Integer() {
         Integer sea = instanceHangar;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -110,7 +115,10 @@ public class Step01VariableTest extends PlainTestCase {
         instanceMagiclamp = "magician";
         helpInstanceVariableViaMethod(instanceMagiclamp);
         String sea = instanceBroadway + "|" + instanceDockside + "|" + instanceHangar + "|" + instanceMagiclamp;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => bigband|1|null|burn
+        // やられた。bigband|1|null|magician
+        // 引数に渡したインスタンス変数はコピーされているので、メソッド内で変更しても元のインスタンス変数は変わらないのか
+        // intellijがちゃんと教えてくれていた
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -130,7 +138,8 @@ public class Step01VariableTest extends PlainTestCase {
         String sea = "harbor";
         int land = 415;
         helpMethodArgumentImmutableMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor
+        // もう騙されない
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
@@ -147,7 +156,12 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor416
+        // StringBuilderのこと知らなかったけど、メタ的にこうなるよなぁで回答した
+        // ちゃんと調べた
+        // StringBuilderは可変なクラスで直接変更できる
+        // メモリが再確保されないから繰り返し文字操作するときに高速
+        // はじめに確保したstringのキャパシティを超えたら自動で再確保してくれるらしい
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -163,7 +177,8 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentVariable(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor
+        // intellijがヒントをくれてしまう
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
@@ -191,8 +206,12 @@ public class Step01VariableTest extends PlainTestCase {
      * o すべての変数をlog()でカンマ区切りの文字列で表示
      * </pre>
      */
+    private int piari;
     public void test_variable_writing() {
         // define variables here
+        String sea = "mystic";
+        Integer land = null;
+        log(sea + "," + land + "," + piari);
     }
 
     // ===================================================================================
@@ -204,11 +223,17 @@ public class Step01VariableTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     * ログに出力される文字列は？
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
     public void test_variable_yourExercise() {
-        // write your code here
+        int number = 10;
+        String text = "hello";
+        StringBuilder builder = new StringBuilder("hello world");
+
+        text = text + number++;
+
+        log(number + ", " + text + ", " + builder.append(++number).toString());
     }
 }
