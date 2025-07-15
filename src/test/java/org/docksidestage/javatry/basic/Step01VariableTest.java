@@ -53,6 +53,11 @@ public class Step01VariableTest extends PlainTestCase {
         // public static String valueOf(Object obj) {
         //        return (obj == null) ? "null" : obj.toString();
         // }
+        // TODO ito [いいね] すごっ！そこまで追ってるの素晴らしい！ by jflute (2025/07/15)
+        // 昔のインターネット画面とかよく「こんにちは nullさん」とか出てました笑
+        // 最近でもメールで null って見たりしましたね。
+        // 一方で、ログに出すときとかは何も出ないよりはnullってわかりやすい面も。
+        // 些細な違いですが、言語によって細かい挙動が違ったりします。(C#は空文字ですね)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -65,10 +70,11 @@ public class Step01VariableTest extends PlainTestCase {
         // なんでこうなるかよく知らなかったので調べた
         // Stringは不変(immutable)でland = land + "'s dreams";の時にlandは新しいStringを指すようになる。
         // なので、seaはlandの新しい値を指していないのでonemanのまま。
+        // TODO ito [いいね] なんでこうなるか？を調べる姿勢がとても素晴らしいです by jflute (2025/07/15)
+        // 変数に対して = で代入したときは、新しい参照 (land と "'s dreams" をくっつけたもの) に差し替えてるわけですね。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
-
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_reassigned_BigDecimal() {
@@ -80,6 +86,13 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => 416
         // addは新しいBigDecimalを返すだけで呼び出し元のBigDecimalは変わらない。
         // なので、seaはlandの新しい値を指していないので416のまま。
+        // TODO ito [いいね] add()の挙動をよく理解できていますね！ by jflute (2025/07/15)
+        // TODO ito [お試し課題] IDE上で BigDecimal (変数の型宣言の方) にカーソルを当ててみてください by jflute (2025/07/15)
+        // クラスのJavaDocが表示されるかと思います。そこに一言目に immutable って書いてあって、
+        // BigDecimal も何やっても一度作ったインスタンスそのものは変わらないってことがわかります。
+
+        // TODO jflute 1on1にて、もうちょい深堀りしていく予定 (2025/07/15)
+        // (↑これはくぼ用のtodoということでそのまま残しておいてください)
     }
 
     // ===================================================================================
@@ -101,6 +114,7 @@ public class Step01VariableTest extends PlainTestCase {
         int sea = instanceDockside;
         log(sea); // your answer? => 0
         // C言語だとゴミ値が入るけど、javaはちゃんと0で初期化されるんだなあ
+        // TODO ito [ざつだん] ああ、そんなことあったような笑 by jflute (2025/07/15)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -119,6 +133,13 @@ public class Step01VariableTest extends PlainTestCase {
         // やられた。bigband|1|null|magician
         // 引数に渡したインスタンス変数はコピーされているので、メソッド内で変更しても元のインスタンス変数は変わらないのか
         // intellijがちゃんと教えてくれていた
+        // TODO ito [ふぉろー] そうですね、インスタンス変数(instanceMagiclamp)自体がhelpメソッドに行くわけじゃなく... by jflute (2025/07/15)
+        // インスタンス変数が参照しているインスタンス (要は変数の中身) がhelpメソッドに行って、
+        // help側は引数と呼ばれる別の変数でそれを受け取るわけですね。(厳密には、アドレスを単に渡しているだけ)
+        //
+        // intellijがどう教えてくれたのか気になるので1on1のとき教えてください(^^
+
+        // TODO jflute 1on1にて、ちょこっと復習予定 (2025/07/15)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -140,6 +161,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentImmutableMethodcall(sea, land);
         log(sea); // your answer? => harbor
         // もう騙されない
+        // TODO ito [いいね] はっはっは by jflute (2025/07/15)
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
@@ -162,6 +184,10 @@ public class Step01VariableTest extends PlainTestCase {
         // StringBuilderは可変なクラスで直接変更できる
         // メモリが再確保されないから繰り返し文字操作するときに高速
         // はじめに確保したstringのキャパシティを超えたら自動で再確保してくれるらしい
+        // TODO ito [いいね] StringBuilderの中身まで追ってるの素晴らしいです。 by jflute (2025/07/15)
+        // 1on1でちょっと一緒にコード読んでみましょう(^^
+        
+        // TODO jflute 1on1にて、StringBuilderのコードリーディング (2025/07/15)
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -179,6 +205,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentVariable(sea, land);
         log(sea); // your answer? => harbor
         // intellijがヒントをくれてしまう
+        // TODO ito [かんそう] なるほどー（＞＜。ちょっと問題のやり方を調整しないとだなぁ... by jflute (2025/07/15)
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
@@ -207,6 +234,7 @@ public class Step01VariableTest extends PlainTestCase {
      * </pre>
      */
     private int piari;
+
     public void test_variable_writing() {
         // define variables here
         String sea = "mystic";
@@ -235,5 +263,17 @@ public class Step01VariableTest extends PlainTestCase {
         text = text + number++;
 
         log(number + ", " + text + ", " + builder.append(++number).toString());
+        // TODO ito やってみた... your answer => "11, hello10, hello world12" by jflute (2025/07/15)
+        // さあどうだ...実行！
+        // ふぉー、合ってた良かった。ドキドキした。。。
+        // インクリメントの演算子の優先順位が遅いというのは昔からJavaで有名な話で...
+        // text + number++; は、textと+されて文字列側の話は解決してからインクリメントされるんですよね。
+        //
+        // なので、けっこう後ろのインクリメントは毛嫌いされて、前のインクリメントを使う人が多いです。
+        // 別に一行単発処理であれば、どっちでも全然大丈夫なんですけど、「何が大丈夫で何が大丈夫じゃないか？」
+        // ってわすれるので、とにかく前に付けておけば問題ない、みたいな感覚で。
+        // 後さらにぼくは、インクリメントは一行単発処理でしか使わないようにしてますね。
+        // e.g.
+        //  ++number;
     }
 }
