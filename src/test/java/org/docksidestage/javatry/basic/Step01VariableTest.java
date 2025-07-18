@@ -53,11 +53,15 @@ public class Step01VariableTest extends PlainTestCase {
         // public static String valueOf(Object obj) {
         //        return (obj == null) ? "null" : obj.toString();
         // }
-        // TODO ito [いいね] すごっ！そこまで追ってるの素晴らしい！ by jflute (2025/07/15)
+        // done ito [いいね] すごっ！そこまで追ってるの素晴らしい！ by jflute (2025/07/15)
         // 昔のインターネット画面とかよく「こんにちは nullさん」とか出てました笑
         // 最近でもメールで null って見たりしましたね。
         // 一方で、ログに出すときとかは何も出ないよりはnullってわかりやすい面も。
         // 些細な違いですが、言語によって細かい挙動が違ったりします。(C#は空文字ですね)
+        
+        // #1on1: 言語の設計思想の話。ちなみに、C#は、空文字。
+        // #1on1: メールテンプレートの管理のジレンマ話、メール開発のジレンマ
+        // 削除できないので実は慎重に実装しないといけないものでもある。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -70,7 +74,7 @@ public class Step01VariableTest extends PlainTestCase {
         // なんでこうなるかよく知らなかったので調べた
         // Stringは不変(immutable)でland = land + "'s dreams";の時にlandは新しいStringを指すようになる。
         // なので、seaはlandの新しい値を指していないのでonemanのまま。
-        // TODO ito [いいね] なんでこうなるか？を調べる姿勢がとても素晴らしいです by jflute (2025/07/15)
+        // done ito [いいね] なんでこうなるか？を調べる姿勢がとても素晴らしいです by jflute (2025/07/15)
         // 変数に対して = で代入したときは、新しい参照 (land と "'s dreams" をくっつけたもの) に差し替えてるわけですね。
     }
 
@@ -86,12 +90,25 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => 416
         // addは新しいBigDecimalを返すだけで呼び出し元のBigDecimalは変わらない。
         // なので、seaはlandの新しい値を指していないので416のまま。
-        // TODO ito [いいね] add()の挙動をよく理解できていますね！ by jflute (2025/07/15)
-        // TODO ito [お試し課題] IDE上で BigDecimal (変数の型宣言の方) にカーソルを当ててみてください by jflute (2025/07/15)
+        // done ito [いいね] add()の挙動をよく理解できていますね！ by jflute (2025/07/15)
+        // done ito [お試し課題] IDE上で BigDecimal (変数の型宣言の方) にカーソルを当ててみてください by jflute (2025/07/15)
         // クラスのJavaDocが表示されるかと思います。そこに一言目に immutable って書いてあって、
         // BigDecimal も何やっても一度作ったインスタンスそのものは変わらないってことがわかります。
+        // #1on1: やってもらって、immutableという文言を見た。
+        // #1on1: add()のソースコードリーディング
+        // #1on1: staticメソッドの話、オーバーロードメソッドの話
+        // #1on1: インスタンスメソッドのクラスメソッド(staticメソッド)
+        // #1on1: immutableが何が嬉しいのか？
+        // 状態を追うのややこしいから？ by itoさん
+        // Good, つまり人都合: 可読性、安全性
+        // 中間成果物インスタンスの話 => スペックの向上で気にしなくなった
+        // immutableの歴史の話
+        // immutableのバランスの話
+        // Scala/Kotlinのお話、JVM言語
+        // 個人的には、8:2な感覚 => できるだけimmutableだけど、無理しない
+        // (組織、個人、チームによって、ちょっと方向性変わるかも)
 
-        // TODO jflute 1on1にて、もうちょい深堀りしていく予定 (2025/07/15)
+        // done jflute 1on1にて、もうちょい深堀りしていく予定 (2025/07/15)
         // (↑これはくぼ用のtodoということでそのまま残しておいてください)
     }
 
@@ -114,7 +131,8 @@ public class Step01VariableTest extends PlainTestCase {
         int sea = instanceDockside;
         log(sea); // your answer? => 0
         // C言語だとゴミ値が入るけど、javaはちゃんと0で初期化されるんだなあ
-        // TODO ito [ざつだん] ああ、そんなことあったような笑 by jflute (2025/07/15)
+        // done ito [ざつだん] ああ、そんなことあったような笑 by jflute (2025/07/15)
+        // #1on1 研修でのC言語のお話
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -133,11 +151,12 @@ public class Step01VariableTest extends PlainTestCase {
         // やられた。bigband|1|null|magician
         // 引数に渡したインスタンス変数はコピーされているので、メソッド内で変更しても元のインスタンス変数は変わらないのか
         // intellijがちゃんと教えてくれていた
-        // TODO ito [ふぉろー] そうですね、インスタンス変数(instanceMagiclamp)自体がhelpメソッドに行くわけじゃなく... by jflute (2025/07/15)
+        // done ito [ふぉろー] そうですね、インスタンス変数(instanceMagiclamp)自体がhelpメソッドに行くわけじゃなく... by jflute (2025/07/15)
         // インスタンス変数が参照しているインスタンス (要は変数の中身) がhelpメソッドに行って、
         // help側は引数と呼ばれる別の変数でそれを受け取るわけですね。(厳密には、アドレスを単に渡しているだけ)
         //
         // intellijがどう教えてくれたのか気になるので1on1のとき教えてください(^^
+        // #1on1: ハイライトで教えてくれる、ぜひIDEのそういった表現、着目してください。
 
         // TODO jflute 1on1にて、ちょこっと復習予定 (2025/07/15)
     }
