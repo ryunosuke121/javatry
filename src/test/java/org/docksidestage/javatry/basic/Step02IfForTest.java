@@ -17,6 +17,7 @@ package org.docksidestage.javatry.basic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.docksidestage.unit.PlainTestCase;
 
@@ -52,7 +53,7 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 7;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -67,7 +68,7 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 9;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -97,7 +98,7 @@ public class Step02IfForTest extends PlainTestCase {
         if (land) {
             sea = 10;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10
     }
 
     // ===================================================================================
@@ -113,7 +114,7 @@ public class Step02IfForTest extends PlainTestCase {
                 sea = stage;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => docksize
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -123,7 +124,7 @@ public class Step02IfForTest extends PlainTestCase {
         for (String stage : stageList) {
             sea = stage;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => magiclamp
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -139,7 +140,7 @@ public class Step02IfForTest extends PlainTestCase {
                 break;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => hangar
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -155,7 +156,7 @@ public class Step02IfForTest extends PlainTestCase {
             }
         });
         String sea = sb.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside
     }
 
     // ===================================================================================
@@ -167,7 +168,17 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_making() {
         // write if-for here
+        List<String> stageListContainA = new ArrayList<>();
+        for (String stage : prepareStageList()) {
+            if (stage.contains("a")) {
+                stageListContainA.add(stage);
+            }
+        }
+        for (String stage : stageListContainA) {
+            log(stage);
+        }
     }
+    // StreamAPIなんてものがあるんですね
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -178,18 +189,30 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList();
-        String sea = null;
-        for (String stage : stageList) {
-            if (stage.startsWith("br")) {
-                continue;
-            }
-            sea = stage;
-            if (stage.contains("ga")) {
-                break;
-            }
-        }
+//        String sea = null;
+//        for (String stage : stageList) {
+//            if (stage.startsWith("br")) {
+//                continue;
+//            }
+//            sea = stage;
+//            if (stage.contains("ga")) {
+//                break;
+//            }
+//        }
+        AtomicReference<String> sea = new AtomicReference<>();
+        stageList.forEach(stage -> {
+           if (stage.startsWith("br")) {
+               return;
+           }
+           // breakが使えないので、一番最初の"ga"を含むstageなのかseaのnullチェックで確認する
+           if (sea.get() == null && stage.contains("ga")) {
+               sea.set(stage);
+           }
+        });
         log(sea); // should be same as before-fix
     }
+    // atomicReferenceはググりました
+    // ラムダ式内では外の変数に再代入できないらしい
 
     /**
      * Make your original exercise as question style about if-for statement. <br>
@@ -203,6 +226,16 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_yourExercise() {
         // write your code here
+        List<String> stageList = prepareStageList();
+        String sea = null;
+        for (int i = 0; i < stageList.size(); i++) {
+            if (i == 1) {
+                sea = stageList.get(i);
+            } else {
+                i++;
+            }
+        }
+        log(sea); // your answer? =>
     }
 
     // ===================================================================================
