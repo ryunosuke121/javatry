@@ -160,7 +160,7 @@ public class Step01VariableTest extends PlainTestCase {
         // intellijがどう教えてくれたのか気になるので1on1のとき教えてください(^^
         // #1on1: ハイライトで教えてくれる、ぜひIDEのそういった表現、着目してください。
 
-        // TODO jflute 1on1にて、ちょこっと復習予定 (2025/07/15)
+        // done jflute 1on1にて、ちょこっと復習予定 (2025/07/15)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -182,7 +182,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentImmutableMethodcall(sea, land);
         log(sea); // your answer? => harbor
         // もう騙されない
-        // TODO ito [いいね] はっはっは by jflute (2025/07/15)
+        // done ito [いいね] はっはっは by jflute (2025/07/15)
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
@@ -226,7 +226,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentVariable(sea, land);
         log(sea); // your answer? => harbor
         // intellijがヒントをくれてしまう
-        // TODO ito [かんそう] なるほどー（＞＜。ちょっと問題のやり方を調整しないとだなぁ... by jflute (2025/07/15)
+        // done ito [かんそう] なるほどー（＞＜。ちょっと問題のやり方を調整しないとだなぁ... by jflute (2025/07/15)
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {

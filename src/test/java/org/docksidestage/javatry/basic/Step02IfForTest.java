@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
 /**
  * The test of if-for. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -99,6 +100,7 @@ public class Step02IfForTest extends PlainTestCase {
             sea = 10;
         }
         log(sea); // your answer? => 10
+        // TODO jflute 1on1にて、一緒にソースコードリーディング予定 (2025/07/31)
     }
 
     // ===================================================================================
@@ -179,6 +181,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
     }
     // StreamAPIなんてものがあるんですね
+    // TODO ito [へんじ] step8で登場します〜(^^ by jflute (2025/07/31)
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -213,6 +216,11 @@ public class Step02IfForTest extends PlainTestCase {
     }
     // atomicReferenceはググりました
     // ラムダ式内では外の変数に再代入できないらしい
+    // TODO ito [ふぉろー] ありがとうございます。要はmutableなクラスを連れてきたということですね by jflute (2025/07/31)
+    // すでに登場したクラスとかだと、StringBuilderで代用することもできたりします。 
+    
+    // TODO ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
+    // 例えば、hangar が存在しない stageList だったとき
 
     /**
      * Make your original exercise as question style about if-for statement. <br>
@@ -236,6 +244,7 @@ public class Step02IfForTest extends PlainTestCase {
             }
         }
         log(sea); // your answer? =>
+        // TODO ito [いいね] 良いひっかけ！笑。一瞬こうと思ったけどelseでああみたいな by jflute (2025/07/31)
     }
 
     // ===================================================================================
