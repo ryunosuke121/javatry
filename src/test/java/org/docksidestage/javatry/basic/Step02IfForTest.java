@@ -17,6 +17,7 @@ package org.docksidestage.javatry.basic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.docksidestage.unit.PlainTestCase;
@@ -27,7 +28,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author ryunosuke.ito
  */
 public class Step02IfForTest extends PlainTestCase {
 
@@ -221,6 +222,24 @@ public class Step02IfForTest extends PlainTestCase {
     
     // TODO ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
     // 例えば、hangar が存在しない stageList だったとき
+
+    public void test_iffor_refactor_foreach_to_forEach2() {
+        List<String> stageList = prepareStageList();
+                StringBuilder sea = new StringBuilder();
+                AtomicBoolean isBreak = new AtomicBoolean(false);
+                stageList.forEach(stage ->{
+                    if (!stage.startsWith("br") && !isBreak.get()) {
+                        sea.setLength(0);
+                        sea.append(stage);
+                        if (stage.contains("ga")) {
+                            isBreak.set(true);
+                        }
+                    }
+                });
+        log(sea); // should be same as before-fix
+    }
+    // 確かにgaを含むstageがない場合の考慮ができてなかったですorz
+    // 多分これで大丈夫そう
 
     /**
      * Make your original exercise as question style about if-for statement. <br>
