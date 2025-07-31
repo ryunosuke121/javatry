@@ -22,6 +22,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO ito [お知らせ] とぅどぅを読んだり修正したりで消化した場合は、とぅどぅの右隣にdoneと付けてもらえるとありがたいです by jflute (2025/07/31)
+// e.g.
+//  とぅどぅ ito [いいね] どうのこうの by jflute (...)
+//   ↓
+//  とぅどぅ done ito [いいね] どうのこうの by jflute (...)
+
 // TODO ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
 /**
  * The test of if-for. <br>
@@ -220,10 +226,11 @@ public class Step02IfForTest extends PlainTestCase {
     // TODO ito [ふぉろー] ありがとうございます。要はmutableなクラスを連れてきたということですね by jflute (2025/07/31)
     // すでに登場したクラスとかだと、StringBuilderで代用することもできたりします。 
     
-    // TODO ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
+    // TODO done ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
     // 例えば、hangar が存在しない stageList だったとき
 
     public void test_iffor_refactor_foreach_to_forEach2() {
+        // TODO ito なんかインデントがズレてるような？ new StringBuilder() の行から by jflute (2025/07/31)
         List<String> stageList = prepareStageList();
                 StringBuilder sea = new StringBuilder();
                 AtomicBoolean isBreak = new AtomicBoolean(false);
@@ -240,6 +247,7 @@ public class Step02IfForTest extends PlainTestCase {
     }
     // 確かにgaを含むstageがない場合の考慮ができてなかったですorz
     // 多分これで大丈夫そう
+    // TODO ito [いいね] おおぉ、実現できてますね！sea = stageの代わりのことをしてあげないということで by jflute (2025/07/31)
 
     /**
      * Make your original exercise as question style about if-for statement. <br>
