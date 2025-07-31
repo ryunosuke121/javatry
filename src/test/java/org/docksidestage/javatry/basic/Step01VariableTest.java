@@ -109,7 +109,7 @@ public class Step01VariableTest extends PlainTestCase {
         // (組織、個人、チームによって、ちょっと方向性変わるかも)
 
         // done jflute 1on1にて、もうちょい深堀りしていく予定 (2025/07/15)
-        // (↑これはくぼ用のtodoということでそのまま残しておいてください)
+        // (↑これはくぼ用のとぅどぅということでそのまま残しておいてください)
         
         // TODO jflute 1on1にて、IntelliJでcontrol+Jの話をするの忘れた (2025/07/18)
     }
