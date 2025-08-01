@@ -29,6 +29,7 @@ import org.docksidestage.unit.PlainTestCase;
 //  とぅどぅ done ito [いいね] どうのこうの by jflute (...)
 
 // TODO ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
+
 /**
  * The test of if-for. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -199,25 +200,25 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList();
-//        String sea = null;
-//        for (String stage : stageList) {
-//            if (stage.startsWith("br")) {
-//                continue;
-//            }
-//            sea = stage;
-//            if (stage.contains("ga")) {
-//                break;
-//            }
-//        }
+        //        String sea = null;
+        //        for (String stage : stageList) {
+        //            if (stage.startsWith("br")) {
+        //                continue;
+        //            }
+        //            sea = stage;
+        //            if (stage.contains("ga")) {
+        //                break;
+        //            }
+        //        }
         AtomicReference<String> sea = new AtomicReference<>();
         stageList.forEach(stage -> {
-           if (stage.startsWith("br")) {
-               return;
-           }
-           // breakが使えないので、一番最初の"ga"を含むstageなのかseaのnullチェックで確認する
-           if (sea.get() == null && stage.contains("ga")) {
-               sea.set(stage);
-           }
+            if (stage.startsWith("br")) {
+                return;
+            }
+            // breakが使えないので、一番最初の"ga"を含むstageなのかseaのnullチェックで確認する
+            if (sea.get() == null && stage.contains("ga")) {
+                sea.set(stage);
+            }
         });
         log(sea); // should be same as before-fix
     }
@@ -225,24 +226,24 @@ public class Step02IfForTest extends PlainTestCase {
     // ラムダ式内では外の変数に再代入できないらしい
     // TODO ito [ふぉろー] ありがとうございます。要はmutableなクラスを連れてきたということですね by jflute (2025/07/31)
     // すでに登場したクラスとかだと、StringBuilderで代用することもできたりします。 
-    
+
     // TODO done ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
     // 例えば、hangar が存在しない stageList だったとき
 
     public void test_iffor_refactor_foreach_to_forEach2() {
         // TODO ito なんかインデントがズレてるような？ new StringBuilder() の行から by jflute (2025/07/31)
         List<String> stageList = prepareStageList();
-                StringBuilder sea = new StringBuilder();
-                AtomicBoolean isBreak = new AtomicBoolean(false);
-                stageList.forEach(stage ->{
-                    if (!stage.startsWith("br") && !isBreak.get()) {
-                        sea.setLength(0);
-                        sea.append(stage);
-                        if (stage.contains("ga")) {
-                            isBreak.set(true);
-                        }
-                    }
-                });
+        StringBuilder sea = new StringBuilder();
+        AtomicBoolean isBreak = new AtomicBoolean(false);
+        stageList.forEach(stage -> {
+            if (!stage.startsWith("br") && !isBreak.get()) {
+                sea.setLength(0);
+                sea.append(stage);
+                if (stage.contains("ga")) {
+                    isBreak.set(true);
+                }
+            }
+        });
         log(sea); // should be same as before-fix
     }
     // 確かにgaを含むstageがない場合の考慮ができてなかったですorz
@@ -255,7 +256,7 @@ public class Step02IfForTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     *
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
