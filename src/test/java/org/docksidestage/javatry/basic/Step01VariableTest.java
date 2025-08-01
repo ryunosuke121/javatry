@@ -297,4 +297,11 @@ public class Step01VariableTest extends PlainTestCase {
         // e.g.
         //  ++number;
     }
+    
+    // #1on1: IntelliJの.ideaのお話けっこうしっかりがっつり
+    // o validationの話とフォーマッターの話 (UXとデータを守るという観点)
+    // o spotlessの話まで突っ込んだ！
+    
+    // TODO ito [読み物課題] 別にパソコンがなくてもプログラミングはできるよ by jflute (2025/08/01)
+    // https://jflute.hatenadiary.jp/entry/20170923/nopcpg
 }
