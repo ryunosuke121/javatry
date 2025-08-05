@@ -28,7 +28,7 @@ import org.docksidestage.unit.PlainTestCase;
 //   ↓
 //  とぅどぅ done ito [いいね] どうのこうの by jflute (...)
 
-// TODO ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
+// TODO done ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
 
 /**
  * The test of if-for. <br>
@@ -231,7 +231,7 @@ public class Step02IfForTest extends PlainTestCase {
     // 例えば、hangar が存在しない stageList だったとき
 
     public void test_iffor_refactor_foreach_to_forEach2() {
-        // TODO ito なんかインデントがズレてるような？ new StringBuilder() の行から by jflute (2025/07/31)
+        // TODO done ito なんかインデントがズレてるような？ new StringBuilder() の行から by jflute (2025/07/31)
         List<String> stageList = prepareStageList();
         StringBuilder sea = new StringBuilder();
         AtomicBoolean isBreak = new AtomicBoolean(false);
