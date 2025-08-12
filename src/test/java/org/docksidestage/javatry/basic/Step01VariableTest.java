@@ -111,7 +111,8 @@ public class Step01VariableTest extends PlainTestCase {
         // done jflute 1on1にて、もうちょい深堀りしていく予定 (2025/07/15)
         // (↑これはくぼ用のとぅどぅということでそのまま残しておいてください)
         
-        // TODO jflute 1on1にて、IntelliJでcontrol+Jの話をするの忘れた (2025/07/18)
+        // done jflute 1on1にて、IntelliJでcontrol+Jの話をするの忘れた (2025/07/18)
+        // #1on1: control+Jの紹介とデフォルトにしちゃう設定のお話
     }
 
     // ===================================================================================
@@ -205,10 +206,12 @@ public class Step01VariableTest extends PlainTestCase {
         // StringBuilderは可変なクラスで直接変更できる
         // メモリが再確保されないから繰り返し文字操作するときに高速
         // はじめに確保したstringのキャパシティを超えたら自動で再確保してくれるらしい
-        // TODO ito [いいね] StringBuilderの中身まで追ってるの素晴らしいです。 by jflute (2025/07/15)
+        // done ito [いいね] StringBuilderの中身まで追ってるの素晴らしいです。 by jflute (2025/07/15)
         // 1on1でちょっと一緒にコード読んでみましょう(^^
         
-        // TODO jflute 1on1にて、StringBuilderのコードリーディング (2025/07/15)
+        // done jflute 1on1にて、StringBuilderのコードリーディング (2025/07/15)
+        // #1on1 StringBuilder, ArrayListのensureCapacity読んだ
+        // #1on1 .classファイルとは？のお話、source-jarの話
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -284,7 +287,7 @@ public class Step01VariableTest extends PlainTestCase {
         text = text + number++;
 
         log(number + ", " + text + ", " + builder.append(++number).toString());
-        // TODO ito やってみた... your answer => "11, hello10, hello world12" by jflute (2025/07/15)
+        // done ito やってみた... your answer => "11, hello10, hello world12" by jflute (2025/07/15)
         // さあどうだ...実行！
         // ふぉー、合ってた良かった。ドキドキした。。。
         // インクリメントの演算子の優先順位が遅いというのは昔からJavaで有名な話で...

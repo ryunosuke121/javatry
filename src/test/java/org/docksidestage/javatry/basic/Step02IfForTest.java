@@ -22,13 +22,13 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO ito [お知らせ] とぅどぅを読んだり修正したりで消化した場合は、とぅどぅの右隣にdoneと付けてもらえるとありがたいです by jflute (2025/07/31)
+// done ito [お知らせ] とぅどぅを読んだり修正したりで消化した場合は、とぅどぅの右隣にdoneと付けてもらえるとありがたいです by jflute (2025/07/31)
 // e.g.
 //  とぅどぅ ito [いいね] どうのこうの by jflute (...)
 //   ↓
 //  とぅどぅ done ito [いいね] どうのこうの by jflute (...)
 
-// TODO done ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
+// done ito JavaDocのauthorお願いしますm(_ _)m by jflute (2025/07/31)
 
 /**
  * The test of if-for. <br>
@@ -109,6 +109,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // your answer? => 10
         // TODO jflute 1on1にて、一緒にソースコードリーディング予定 (2025/07/31)
+        // #1on1 漠然読みで構造を把握して、当てをつけてフォーカス読み
     }
 
     // ===================================================================================
@@ -135,6 +136,8 @@ public class Step02IfForTest extends PlainTestCase {
             sea = stage;
         }
         log(sea); // your answer? => magiclamp
+        
+        // #1on1: 普通のfor文と言ったときのニュアンス、どっちを指す？話
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -167,6 +170,15 @@ public class Step02IfForTest extends PlainTestCase {
         });
         String sea = sb.toString();
         log(sea); // your answer? => dockside
+        
+        // #1on1: forEach()メソッド、中では拡張for文、ループの代理メソッドという感じ。
+        // 拡張for文に比べて、forEach()メソッドできないことを増えている...
+        // では、なぜforEach()メソッドが導入されたのか？ (forEach()メソッドのメリットとは？)
+        // 読みやすい、他の変数をいじらないから by itoさん
+        // yes, できないことが嬉しいこともある。immutableにつながる話。
+        // (Go言語のループの話から、Stream APIの話になって、Optionalの話にまでなった)
+        // (step8のところに1on1のメモ書いてある)
+        // (シンプルの戦略の持続性とは？)
     }
 
     // ===================================================================================
@@ -189,7 +201,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
     }
     // StreamAPIなんてものがあるんですね
-    // TODO ito [へんじ] step8で登場します〜(^^ by jflute (2025/07/31)
+    // done ito [へんじ] step8で登場します〜(^^ by jflute (2025/07/31)
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -231,7 +243,7 @@ public class Step02IfForTest extends PlainTestCase {
     // 例えば、hangar が存在しない stageList だったとき
 
     public void test_iffor_refactor_foreach_to_forEach2() {
-        // TODO done ito なんかインデントがズレてるような？ new StringBuilder() の行から by jflute (2025/07/31)
+        // done ito なんかインデントがズレてるような？ new StringBuilder() の行から by jflute (2025/07/31)
         List<String> stageList = prepareStageList();
         StringBuilder sea = new StringBuilder();
         AtomicBoolean isBreak = new AtomicBoolean(false);
@@ -248,7 +260,9 @@ public class Step02IfForTest extends PlainTestCase {
     }
     // 確かにgaを含むstageがない場合の考慮ができてなかったですorz
     // 多分これで大丈夫そう
-    // TODO ito [いいね] おおぉ、実現できてますね！sea = stageの代わりのことをしてあげないということで by jflute (2025/07/31)
+    // done ito [いいね] おおぉ、実現できてますね！sea = stageの代わりのことをしてあげないということで by jflute (2025/07/31)
+    // TODO ito 修行++: 除外分岐は、独立if文で先にやった方がみやすくなるかなと by jflute (2025/08/12)
+    // TODO ito 修行#: isBreak変数抜きで、同じことを実現してみませんか？ (新しい変数追加なしで) by jflute (2025/08/12)
 
     /**
      * Make your original exercise as question style about if-for statement. <br>
@@ -272,7 +286,7 @@ public class Step02IfForTest extends PlainTestCase {
             }
         }
         log(sea); // your answer? =>
-        // TODO ito [いいね] 良いひっかけ！笑。一瞬こうと思ったけどelseでああみたいな by jflute (2025/07/31)
+        // done ito [いいね] 良いひっかけ！笑。一瞬こうと思ったけどelseでああみたいな by jflute (2025/07/31)
     }
 
     // ===================================================================================

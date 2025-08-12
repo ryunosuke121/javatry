@@ -177,6 +177,11 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             log(member.getMemberId(), member.getMemberName());
         }
         // your answer? => 
+        
+        // #1on1: Kotlinだったらint?でoptional、JavaにもOptionalあるけど... (2025/08/12)
+        // 少なくとも、文法に組み込まれてるか、ただのクラスなのか？の違いがある。
+        // Javaだと、徹底するのは難しいので、適所で使うみたいなことが多い印象。
+        // くぼ個人の、フレームワークの中でのOptionalの話。
     }
 
     /**
