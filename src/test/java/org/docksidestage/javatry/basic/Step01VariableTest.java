@@ -58,7 +58,7 @@ public class Step01VariableTest extends PlainTestCase {
         // 最近でもメールで null って見たりしましたね。
         // 一方で、ログに出すときとかは何も出ないよりはnullってわかりやすい面も。
         // 些細な違いですが、言語によって細かい挙動が違ったりします。(C#は空文字ですね)
-        
+
         // #1on1: 言語の設計思想の話。ちなみに、C#は、空文字。
         // #1on1: メールテンプレートの管理のジレンマ話、メール開発のジレンマ
         // 削除できないので実は慎重に実装しないといけないものでもある。
@@ -110,7 +110,7 @@ public class Step01VariableTest extends PlainTestCase {
 
         // done jflute 1on1にて、もうちょい深堀りしていく予定 (2025/07/15)
         // (↑これはくぼ用のとぅどぅということでそのまま残しておいてください)
-        
+
         // done jflute 1on1にて、IntelliJでcontrol+Jの話をするの忘れた (2025/07/18)
         // #1on1: control+Jの紹介とデフォルトにしちゃう設定のお話
     }
@@ -208,7 +208,7 @@ public class Step01VariableTest extends PlainTestCase {
         // はじめに確保したstringのキャパシティを超えたら自動で再確保してくれるらしい
         // done ito [いいね] StringBuilderの中身まで追ってるの素晴らしいです。 by jflute (2025/07/15)
         // 1on1でちょっと一緒にコード読んでみましょう(^^
-        
+
         // done jflute 1on1にて、StringBuilderのコードリーディング (2025/07/15)
         // #1on1 StringBuilder, ArrayListのensureCapacity読んだ
         // #1on1 .classファイルとは？のお話、source-jarの話
@@ -300,11 +300,13 @@ public class Step01VariableTest extends PlainTestCase {
         // e.g.
         //  ++number;
     }
-    
+
     // #1on1: IntelliJの.ideaのお話けっこうしっかりがっつり
     // o validationの話とフォーマッターの話 (UXとデータを守るという観点)
     // o spotlessの話まで突っ込んだ！
-    
-    // TODO ito [読み物課題] 別にパソコンがなくてもプログラミングはできるよ by jflute (2025/08/01)
+
+    // done TODO ito [読み物課題] 別にパソコンがなくてもプログラミングはできるよ by jflute (2025/08/01)
     // https://jflute.hatenadiary.jp/entry/20170923/nopcpg
+    // 読みました！面白かったです。読んでて就活の時期はESの内容を温泉に浸かりながら考えていたのを思い出しました
+    // でもそれをプログラミングで行おうという意識がなかったので出勤前の電車の中とかで試してみます！
 }

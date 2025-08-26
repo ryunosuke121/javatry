@@ -136,7 +136,7 @@ public class Step02IfForTest extends PlainTestCase {
             sea = stage;
         }
         log(sea); // your answer? => magiclamp
-        
+
         // #1on1: 普通のfor文と言ったときのニュアンス、どっちを指す？話
     }
 
@@ -170,7 +170,7 @@ public class Step02IfForTest extends PlainTestCase {
         });
         String sea = sb.toString();
         log(sea); // your answer? => dockside
-        
+
         // #1on1: forEach()メソッド、中では拡張for文、ループの代理メソッドという感じ。
         // 拡張for文に比べて、forEach()メソッドできないことを増えている...
         // では、なぜforEach()メソッドが導入されたのか？ (forEach()メソッドのメリットとは？)
@@ -263,6 +263,40 @@ public class Step02IfForTest extends PlainTestCase {
     // done ito [いいね] おおぉ、実現できてますね！sea = stageの代わりのことをしてあげないということで by jflute (2025/07/31)
     // TODO ito 修行++: 除外分岐は、独立if文で先にやった方がみやすくなるかなと by jflute (2025/08/12)
     // TODO ito 修行#: isBreak変数抜きで、同じことを実現してみませんか？ (新しい変数追加なしで) by jflute (2025/08/12)
+
+    // 早期return
+    public void test_iffor_refactor_foreach_to_forEach3() {
+        List<String> stageList = prepareStageList();
+        StringBuilder sea = new StringBuilder();
+        AtomicBoolean isBreak = new AtomicBoolean(false);
+        stageList.forEach(stage -> {
+            if (isBreak.get() || stage.startsWith("br")) {
+                return;
+            }
+
+            sea.setLength(0);
+            sea.append(stage);
+            if (stage.contains("ga")) {
+                isBreak.set(true);
+            }
+        });
+        log(sea); // should be same as before-fix
+    }
+
+    // isBreak変数抜き
+    public void test_iffor_refactor_foreach_to_forEach4() {
+        List<String> stageList = prepareStageList();
+        StringBuilder sea = new StringBuilder();
+        stageList.forEach(stage -> {
+            if (stage.startsWith("br") || (sea.toString().contains("ga"))) {
+                return;
+            }
+
+            sea.setLength(0);
+            sea.append(stage);
+        });
+        log(sea);
+    }
 
     /**
      * Make your original exercise as question style about if-for statement. <br>
