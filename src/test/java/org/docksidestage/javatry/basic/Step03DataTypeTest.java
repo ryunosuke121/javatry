@@ -88,6 +88,14 @@ public class Step03DataTypeTest extends PlainTestCase {
     // byte型のことをよく知らなかった
     // byteは-128~127の整数を表現できる, 8bitの符号付き整数型
     // 確かにdoubleをキャストすると、小数点以下切り捨てになるのも納得か
+    
+    // #1on1: こんな読みづらいプログラムそもそも書かないという教訓。
+    // 特に縮小変換とか入ると、ベテランでも「どうなるんだっけ？」ってなりがち。
+    
+    // #1on1: 実際に現場でよく使われるプリミティブ型は、int, long, boolean
+    // 小数点はBigDecimalで代替される。
+    // Boolean は null が入る可能性があるので boolean で十分。
+    // (unknownな状態を示すののBooleanもなくはないが、ローカル変数とかならほぼboolean)
 
     // ===================================================================================
     //                                                                              Object
@@ -97,6 +105,7 @@ public class Step03DataTypeTest extends PlainTestCase {
         St3ImmutableStage stage = new St3ImmutableStage("hangar");
         String sea = stage.getStageName();
         log(sea); // your answer? => hangar
+        // #1on1: String や BigDecimal も同じ構造 (ちょこっとコードリーディング)
     }
 
     private static class St3ImmutableStage {

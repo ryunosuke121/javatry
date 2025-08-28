@@ -305,7 +305,7 @@ public class Step01VariableTest extends PlainTestCase {
     // o validationの話とフォーマッターの話 (UXとデータを守るという観点)
     // o spotlessの話まで突っ込んだ！
 
-    // done TODO ito [読み物課題] 別にパソコンがなくてもプログラミングはできるよ by jflute (2025/08/01)
+    // done ito [読み物課題] 別にパソコンがなくてもプログラミングはできるよ by jflute (2025/08/01)
     // https://jflute.hatenadiary.jp/entry/20170923/nopcpg
     // 読みました！面白かったです。読んでて就活の時期はESの内容を温泉に浸かりながら考えていたのを思い出しました
     // でもそれをプログラミングで行おうという意識がなかったので出勤前の電車の中とかで試してみます！

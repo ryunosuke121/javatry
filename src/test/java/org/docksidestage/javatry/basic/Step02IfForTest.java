@@ -108,7 +108,7 @@ public class Step02IfForTest extends PlainTestCase {
             sea = 10;
         }
         log(sea); // your answer? => 10
-        // TODO jflute 1on1にて、一緒にソースコードリーディング予定 (2025/07/31)
+        // done jflute 1on1にて、一緒にソースコードリーディング予定 (2025/07/31)
         // #1on1 漠然読みで構造を把握して、当てをつけてフォーカス読み
     }
 
@@ -236,10 +236,10 @@ public class Step02IfForTest extends PlainTestCase {
     }
     // atomicReferenceはググりました
     // ラムダ式内では外の変数に再代入できないらしい
-    // TODO ito [ふぉろー] ありがとうございます。要はmutableなクラスを連れてきたということですね by jflute (2025/07/31)
+    // done ito [ふぉろー] ありがとうございます。要はmutableなクラスを連れてきたということですね by jflute (2025/07/31)
     // すでに登場したクラスとかだと、StringBuilderで代用することもできたりします。 
 
-    // TODO done ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
+    // done ito 修行++: 一方で、stageList の中身の構成が変わっても、書き換え前と結果が同じになるようにしてみましょう by jflute (2025/07/31)
     // 例えば、hangar が存在しない stageList だったとき
 
     public void test_iffor_refactor_foreach_to_forEach2() {
@@ -261,8 +261,8 @@ public class Step02IfForTest extends PlainTestCase {
     // 確かにgaを含むstageがない場合の考慮ができてなかったですorz
     // 多分これで大丈夫そう
     // done ito [いいね] おおぉ、実現できてますね！sea = stageの代わりのことをしてあげないということで by jflute (2025/07/31)
-    // TODO ito 修行++: 除外分岐は、独立if文で先にやった方がみやすくなるかなと by jflute (2025/08/12)
-    // TODO ito 修行#: isBreak変数抜きで、同じことを実現してみませんか？ (新しい変数追加なしで) by jflute (2025/08/12)
+    // done ito 修行++: 除外分岐は、独立if文で先にやった方がみやすくなるかなと by jflute (2025/08/12)
+    // done ito 修行#: isBreak変数抜きで、同じことを実現してみませんか？ (新しい変数追加なしで) by jflute (2025/08/12)
 
     // 早期return
     public void test_iffor_refactor_foreach_to_forEach3() {
@@ -283,11 +283,20 @@ public class Step02IfForTest extends PlainTestCase {
         log(sea); // should be same as before-fix
     }
 
+    // #1on1: isBreak変数抜きが良いとは限らなくて、選択肢の一つ。
+    // パフォーマンスを気にするなら、booleanに変換して残りのループを判定させるほうが良いという考え方もある。
     // isBreak変数抜き
     public void test_iffor_refactor_foreach_to_forEach4() {
         List<String> stageList = prepareStageList();
         StringBuilder sea = new StringBuilder();
         stageList.forEach(stage -> {
+            // TODO ito toString()すると、毎回Builder内部の配列をStringインスタンスに変換してしまう by jflute (2025/08/28)
+            // break後のループが多い場合はチリも積もればのコストになるので、Builderのまま判定したい。
+            // (#1on1: toString()のコードリーディング、Stringのnewと配列のコピー)
+            //
+            // #1on1: isBreakのときと右左判定順序が逆になっているが...まあこっちの場合はどっちでも!?
+            // (isBreakの方は、確かに先にisBreakを判定させてあげたほうが良いでしょう)
+            //
             if (stage.startsWith("br") || (sea.toString().contains("ga"))) {
                 return;
             }

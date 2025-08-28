@@ -160,17 +160,31 @@ public class Step04MethodTest extends PlainTestCase {
         }
     }
 
+    // TODO ito [いいね] privateメソッドの定義順序が呼び出す順でわかりやすい by jflute (2025/08/28)
+    // #1on1: よくあるパターンとしては、ただ時系列に一番下に追加するのが多い
+    // まあクラスが小さくてカテゴライズも存在しないとかであればまだしも...
+    // そうでなくてもただ一番下にってことも多い。おじゃまします感!?
+    // でも、追加修正する人が、クラスの全体バランスを配慮する責任が(均等に)あると思って欲しい。
+    // @authorを付けてもらうっていうのも、その(小さな)配慮の一つ話。
+    
+    // #1on1: 既存をちょいリファクタリングしたくなったとき、ブランチどうする問題？ by itoさん
+    // o チームでの決め事に従う、決め事がなければ決める
+    //  i がんがんチケットブランチに含めるパターン
+    //  i きっちり別のブランチに分けるパターン (別タスク: Issue登録？)
+    //     → 優先度が低くなって年単位で放置されやすい
+    //     → 別タスクだけど続けてすぐやるくらいじゃないとなかなか成立しない
+    //     → チームによっては週1でリファクタリングタイムを設けてるところも(理想的)
+    //  i よほど差分が見にくくなければある程度OKパターン
+    //  i 決め事もなければ決めようともしないチームパターン (人に依る)
+    //     → 人に依る: まあ多くの人が怖くてスルーする
+    // (色々とお話しました)
+    
+    // TODO ito [読み物課題] リファクタリングという行為が好きか？ by jflute (2025/08/28)
+    // https://jflute.hatenadiary.jp/entry/20220328/loverefactor
+    
     // write methods here
     private String replaceAwithB(String str) {
         return str.replace("A", "B");
-    }
-
-    private String replaceCwithB(String str) {
-        return str.replace("C", "B");
-    }
-
-    private String quote(String str, String quotation) {
-        return quotation + str + quotation;
     }
 
     private boolean isAvailableLogging() {
@@ -179,5 +193,14 @@ public class Step04MethodTest extends PlainTestCase {
 
     private void showSea(String sea) {
         log(sea);
+    }
+
+    private String replaceCwithB(String str) {
+        return str.replace("C", "B");
+    }
+    
+    // TODO ito [いいね] quotationという引数名がGood by jflute (2025/08/28)
+    private String quote(String str, String quotation) {
+        return quotation + str + quotation;
     }
 }
