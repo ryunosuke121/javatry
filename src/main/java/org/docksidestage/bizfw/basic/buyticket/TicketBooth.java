@@ -24,12 +24,12 @@ public class TicketBooth {
     //                                                                          Definition
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
-    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private int quantity = MAX_QUANTITY;
+    private int twoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
     // ===================================================================================
@@ -56,17 +56,50 @@ public class TicketBooth {
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
     public void buyOneDayPassport(Integer handedMoney) {
+        buyPassport(Passport.ONE_DAY_PASSPORT, handedMoney);
+    }
+
+    public int buyTwoDayPassport(Integer handedMoney) {
+        int change = buyPassport(Passport.TWO_DAY_PASSPORT, handedMoney);
+        return change;
+    }
+
+    private int buyPassport(Passport passport, Integer handedMoney) {
+        int quantity = getPassportQuantity(passport);
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        --quantity;
-        if (handedMoney < ONE_DAY_PRICE) {
+        if (handedMoney < passport.price) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
-        if (salesProceeds != null) { // second or more purchase
-            salesProceeds = salesProceeds + handedMoney;
-        } else { // first purchase
-            salesProceeds = handedMoney;
+        setPassportQuantity(passport, quantity - 1);
+        if (salesProceeds != null) {
+            salesProceeds += passport.price;
+        } else {
+            salesProceeds = passport.price;
+        }
+        return handedMoney - salesProceeds;
+    }
+
+    private int getPassportQuantity(Passport passport) {
+        switch (passport) {
+        case ONE_DAY_PASSPORT:
+            return quantity;
+        case TWO_DAY_PASSPORT:
+            return twoDayPassportQuantity;
+        default:
+            throw new IllegalStateException("Unknown passport: " + passport);
+        }
+    }
+
+    private void setPassportQuantity(Passport passport, int newQuantity) {
+        switch (passport) {
+        case ONE_DAY_PASSPORT:
+            quantity = newQuantity;
+            break;
+        case TWO_DAY_PASSPORT:
+            twoDayPassportQuantity = newQuantity;
+            break;
         }
     }
 
@@ -93,6 +126,10 @@ public class TicketBooth {
     //                                                                            ========
     public int getQuantity() {
         return quantity;
+    }
+
+    public int getTwoDayPassportQuantity() {
+        return twoDayPassportQuantity;
     }
 
     public Integer getSalesProceeds() {

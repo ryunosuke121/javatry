@@ -290,14 +290,14 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         StringBuilder sea = new StringBuilder();
         stageList.forEach(stage -> {
-            // TODO ito toString()すると、毎回Builder内部の配列をStringインスタンスに変換してしまう by jflute (2025/08/28)
+            // done TODO ito toString()すると、毎回Builder内部の配列をStringインスタンスに変換してしまう by jflute (2025/08/28)
             // break後のループが多い場合はチリも積もればのコストになるので、Builderのまま判定したい。
             // (#1on1: toString()のコードリーディング、Stringのnewと配列のコピー)
             //
             // #1on1: isBreakのときと右左判定順序が逆になっているが...まあこっちの場合はどっちでも!?
             // (isBreakの方は、確かに先にisBreakを判定させてあげたほうが良いでしょう)
             //
-            if (stage.startsWith("br") || (sea.toString().contains("ga"))) {
+            if (stage.startsWith("br") || (sea.indexOf("ga") != -1)) {
                 return;
             }
 

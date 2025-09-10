@@ -23,12 +23,12 @@ import org.docksidestage.unit.PlainTestCase;
  * The test of class. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう) <br>
- * 
+ *
  * If ambiguous requirement exists, you can determine specification that seems appropriate. <br>
  * (要件が曖昧なところがあれば、適切だと思われる仕様を決めても良いです)
- * 
+ *
  * @author jflute
- * @author your_name_here
+ * @author ryunosuke.ito
  */
 public class Step05ClassTest extends PlainTestCase {
 
@@ -43,7 +43,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(7400);
         int sea = booth.getQuantity();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 9
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -51,21 +51,23 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10000 -> 7400(fix後)
     }
+    // お釣りを渡さないお店だ
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
         TicketBooth booth = new TicketBooth();
         Integer sea = booth.getSalesProceeds();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_wrongQuantity() {
         Integer sea = doTest_class_ticket_wrongQuantity();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 9 -> 10(fix後)
     }
+    // 在庫が減ってしまう
 
     private Integer doTest_class_ticket_wrongQuantity() {
         TicketBooth booth = new TicketBooth();
@@ -108,13 +110,14 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_makeMethod_twoday() {
         // uncomment after making the method
-        //TicketBooth booth = new TicketBooth();
-        //int money = 14000;
-        //int change = booth.buyTwoDayPassport(money);
-        //Integer sea = booth.getSalesProceeds() + change;
-        //log(sea); // should be same as money
+        TicketBooth booth = new TicketBooth();
+        int money = 14000;
+        int change = booth.buyTwoDayPassport(money);
+        Integer sea = booth.getSalesProceeds() + change;
+        log(sea); // should be same as money
 
         // and show two-day passport quantity here
+        log(booth.getTwoDayPassportQuantity());
     }
 
     /**
