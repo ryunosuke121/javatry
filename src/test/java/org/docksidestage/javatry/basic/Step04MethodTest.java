@@ -179,10 +179,12 @@ public class Step04MethodTest extends PlainTestCase {
     //     → 人に依る: まあ多くの人が怖くてスルーする
     // (色々とお話しました)
 
-    // done TODO ito [読み物課題] リファクタリングという行為が好きか？ by jflute (2025/08/28)
+    // done ito [読み物課題] リファクタリングという行為が好きか？ by jflute (2025/08/28)
     // https://jflute.hatenadiary.jp/entry/20220328/loverefactor
     // 読みました！多分自分は好きではない方かなと思いました笑
     // でも多分片付け嫌いだからというよりも、アーキテクチャやコードの可読性の話がシンプルに知識不足で苦手っていう理由な感覚があります
+    // TODO ito [ふぉろー] そうですね、セオリーが身についてくると楽しくなってくるというのはあると思います！ by jflute (2025/09/11)
+    // ぜひ、javatryでそのへんにフォーカス当てていきましょう！(^^そういうつもりでフォローしてきますね。
 
     // write methods here
     private String replaceAwithB(String str) {
