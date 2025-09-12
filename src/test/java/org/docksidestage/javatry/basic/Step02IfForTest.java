@@ -290,7 +290,7 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         StringBuilder sea = new StringBuilder();
         stageList.forEach(stage -> {
-            // done TODO ito toString()すると、毎回Builder内部の配列をStringインスタンスに変換してしまう by jflute (2025/08/28)
+            // done ito toString()すると、毎回Builder内部の配列をStringインスタンスに変換してしまう by jflute (2025/08/28)
             // break後のループが多い場合はチリも積もればのコストになるので、Builderのまま判定したい。
             // (#1on1: toString()のコードリーディング、Stringのnewと配列のコピー)
             //

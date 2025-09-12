@@ -160,7 +160,7 @@ public class Step04MethodTest extends PlainTestCase {
         }
     }
 
-    // TODO ito [いいね] privateメソッドの定義順序が呼び出す順でわかりやすい by jflute (2025/08/28)
+    // done ito [いいね] privateメソッドの定義順序が呼び出す順でわかりやすい by jflute (2025/08/28)
     // #1on1: よくあるパターンとしては、ただ時系列に一番下に追加するのが多い
     // まあクラスが小さくてカテゴライズも存在しないとかであればまだしも...
     // そうでなくてもただ一番下にってことも多い。おじゃまします感!?
@@ -183,7 +183,7 @@ public class Step04MethodTest extends PlainTestCase {
     // https://jflute.hatenadiary.jp/entry/20220328/loverefactor
     // 読みました！多分自分は好きではない方かなと思いました笑
     // でも多分片付け嫌いだからというよりも、アーキテクチャやコードの可読性の話がシンプルに知識不足で苦手っていう理由な感覚があります
-    // TODO ito [ふぉろー] そうですね、セオリーが身についてくると楽しくなってくるというのはあると思います！ by jflute (2025/09/11)
+    // done ito [ふぉろー] そうですね、セオリーが身についてくると楽しくなってくるというのはあると思います！ by jflute (2025/09/11)
     // ぜひ、javatryでそのへんにフォーカス当てていきましょう！(^^そういうつもりでフォローしてきますね。
 
     // write methods here
@@ -203,7 +203,7 @@ public class Step04MethodTest extends PlainTestCase {
         return str.replace("C", "B");
     }
 
-    // TODO ito [いいね] quotationという引数名がGood by jflute (2025/08/28)
+    // done ito [いいね] quotationという引数名がGood by jflute (2025/08/28)
     private String quote(String str, String quotation) {
         return quotation + str + quotation;
     }

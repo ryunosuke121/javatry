@@ -15,6 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+// TODO ito author追加お願いします by jflute (2025/09/12)
 /**
  * @author jflute
  */
@@ -28,6 +29,7 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO ito quantity と twoDayPassportQuantity の違いは何ですか？と聞かれたら？ by jflute (2025/09/12)
     private int quantity = MAX_QUANTITY;
     private int twoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
@@ -64,7 +66,21 @@ public class TicketBooth {
         return change;
     }
 
+    // #1on1: jfluteの流れを重視するリファクタリングのライブコーディング (2025/09/12)
+    //private int buyPassport(Passport passport, Integer handedMoney) {
+    //    int quantity = getPassportQuantity(passport);
+    //    assertQuantityExists(quantity);
+    //    assertEnoughMoney(passport, handedMoney);
+    //    setPassportQuantity(passport, quantity - 1);
+    //    calculateSalesProceeds(passport);
+    //    return calculateChange(handedMoney);
+    //}
+    
+    // TODO ito publicのbuyに対して実処理のbuyなわけですが、先頭文字を変える習慣があります by jflute (2025/09/12)
+    // (this.bu... で補完紛れで若干わかりにくくなるし、会話上もbuyメソッドって言った時どっちを指す？)
+    // e.g. doBuyPassport(), internalBuyPassport() など
     private int buyPassport(Passport passport, Integer handedMoney) {
+        // TODO ito せっかくなので、ショートカットを使った上で、流れリファクタリングしてみましょう by jflute (2025/09/12)
         int quantity = getPassportQuantity(passport);
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
@@ -80,8 +96,10 @@ public class TicketBooth {
         }
         return handedMoney - salesProceeds;
     }
-
+    
     private int getPassportQuantity(Passport passport) {
+        // TODO ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
+        // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
         switch (passport) {
         case ONE_DAY_PASSPORT:
             return quantity;

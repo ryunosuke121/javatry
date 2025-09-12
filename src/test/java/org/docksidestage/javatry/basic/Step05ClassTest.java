@@ -91,6 +91,11 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_letsFix_ticketQuantityReduction() {
         Integer sea = doTest_class_ticket_wrongQuantity();
         log(sea); // should be max quantity, visual check here
+        
+        // #1on1: それぞれの行は間違ってないのに、順番間違えたらミス。
+        
+        // #1on1: 宣言型のプログラミングのお話: SQL
+        // Springのアノテーション
     }
 
     /**
@@ -211,19 +216,38 @@ public class Step05ClassTest extends PlainTestCase {
         // your confirmation code here
     }
 
+    // ===================================================================================
+    //                                                                         Bonus Stage
+    //                                                                         ===========
     /**
-     * Refactor if you want to fix (e.g. is it well-balanced name of method and variable?). <br>
-     * (その他、気になるところがあったらリファクタリングしてみましょう (例えば、バランスの良いメソッド名や変数名になっていますか？))
+     * Refactor the code to the best readable code you can think of. <br>
+     * (自分の中で思う最高に可読性の高いコードにリファクタリングしてみましょう)
      */
     public void test_class_moreFix_yourRefactoring() {
         // your confirmation code here
     }
 
     /**
-     * Write intelligent comments on source code to the main code in buyticket package. <br>
-     * (buyticketパッケージのクラスに、気の利いたコメントを追加してみましょう)
+     * Write intelligent JavaDoc comments seriously on the public classes/constructors/methods of the Ticket class. <br>
+     * (Ticketクラスのpublicなクラス/コンストラクター/メソッドに、気の利いたJavaDocコメントを本気で書いてみましょう) <br>
+     * <br>
+     * Seriously → With the intention that the Ticket class (for example) becomes open source and is used by hundreds of people. <br>
+     * (本気で → Ticketクラスが(例えば)オープンソースになって何百人の人から利用される想定のつもりで。)
      */
-    public void test_class_moreFix_yourSuperComments() {
+    public void test_class_moreFix_yourSuperJavaDoc() {
+        // your confirmation code here
+    }
+
+    // ===================================================================================
+    //                                                                         Devil Stage
+    //                                                                         ===========
+    /**
+     * If your specification is to share inventory (quantity) between OneDay/TwoDay/...,
+     * change the specification to separate inventory for each OneDay/TwoDay/.... <br>
+     * (もし、OneDay/TwoDay/...で在庫(quantity)を共有する仕様になってたら、
+     * OneDay/TwoDay/...ごとに在庫を分ける仕様に変えてみましょう)
+     */
+    public void test_class_moreFix_zonedQuantity() {
         // your confirmation code here
     }
 }
