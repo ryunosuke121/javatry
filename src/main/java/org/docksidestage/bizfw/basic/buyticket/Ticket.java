@@ -23,34 +23,38 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private final int displayPrice; // written on ticket, park guest can watch this
-    private boolean alreadyIn; // true means this ticket is unavailable
+    private final TicketType ticketType;
+    private int entryCount = 0;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(int displayPrice) {
-        this.displayPrice = displayPrice;
+    public Ticket(TicketType ticketType) {
+        this.ticketType = ticketType;
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
     public void doInPark() {
-        if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
+        if (entryCount >= ticketType.days) {
+            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + getDisplayPrice());
         }
-        alreadyIn = true;
+        ++entryCount;
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     public int getDisplayPrice() {
-        return displayPrice;
+        return ticketType.price;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
     }
 
     public boolean isAlreadyIn() {
-        return alreadyIn;
+        return entryCount >= ticketType.days;
     }
 }

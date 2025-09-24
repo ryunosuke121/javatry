@@ -26,11 +26,13 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author ryunosuke.ito
  */
 public enum TicketType {
-    ONE_DAY_PASSPORT(7400), TWO_DAY_PASSPORT(13200);
+    ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2);
 
     public final int price;
+    public final int days;
 
-    TicketType(int price) {
+    TicketType(int price, int days) {
         this.price = price;
+        this.days = days;
     }
 }

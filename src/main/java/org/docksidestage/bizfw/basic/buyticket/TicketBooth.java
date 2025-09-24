@@ -62,13 +62,14 @@ public class TicketBooth {
      * @throws TicketSoldOutException When ticket in booth is sold out.
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
-    public void buyOneDayPassport(Integer handedMoney) {
+    public Ticket buyOneDayPassport(Integer handedMoney) {
         doBuyPassport(ONE_DAY_PASSPORT, handedMoney);
+        return new Ticket(ONE_DAY_PASSPORT);
     }
 
-    public int buyTwoDayPassport(Integer handedMoney) {
+    public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         int change = doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
-        return change;
+        return new TicketBuyResult(new Ticket(TWO_DAY_PASSPORT), change);
     }
 
     // #1on1: jfluteの流れを重視するリファクタリングのライブコーディング (2025/09/12)
