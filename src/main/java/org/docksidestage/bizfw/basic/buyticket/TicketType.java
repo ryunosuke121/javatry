@@ -16,13 +16,21 @@ package org.docksidestage.bizfw.basic.buyticket;
 // ↑この説明のおかげで、いとりゅーさんの勘違いが発見できた (インスタンスは限定されている) (2025/09/12)
 // enumは暗黙的にabstractなEnumクラスを継承している、だからこそ別のクラスを継承できない。
 
-// TODO ito せっかくなのでjavadocを by jflute (2025/09/12)
-public enum Passport {
+// TODO done ito せっかくなのでjavadocを by jflute (2025/09/12)
+
+/**
+ * The type of ticket for entering the park.
+ * <pre>
+ * This enum defines the types of tickets available for purchase, along with their respective prices.
+ * </pre>
+ * @author ryunosuke.ito
+ */
+public enum TicketType {
     ONE_DAY_PASSPORT(7400), TWO_DAY_PASSPORT(13200);
 
     public final int price;
 
-    Passport(int price) {
+    TicketType(int price) {
         this.price = price;
     }
 }

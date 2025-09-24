@@ -15,9 +15,14 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO ito author追加お願いします by jflute (2025/09/12)
+// TODO done ito author追加お願いします by jflute (2025/09/12)
+
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.ONE_DAY_PASSPORT;
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.TWO_DAY_PASSPORT;
+
 /**
  * @author jflute
+ * @author ryunosuke.ito
  */
 public class TicketBooth {
 
@@ -29,8 +34,8 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO ito quantity と twoDayPassportQuantity の違いは何ですか？と聞かれたら？ by jflute (2025/09/12)
-    private int quantity = MAX_QUANTITY;
+    // TODO done ito quantity と twoDayPassportQuantity の違いは何ですか？と聞かれたら？ by jflute (2025/09/12)
+    private int oneDayPassportQuantity = MAX_QUANTITY;
     private int twoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
@@ -58,11 +63,11 @@ public class TicketBooth {
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
     public void buyOneDayPassport(Integer handedMoney) {
-        buyPassport(Passport.ONE_DAY_PASSPORT, handedMoney);
+        doBuyPassport(ONE_DAY_PASSPORT, handedMoney);
     }
 
     public int buyTwoDayPassport(Integer handedMoney) {
-        int change = buyPassport(Passport.TWO_DAY_PASSPORT, handedMoney);
+        int change = doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
         return change;
     }
 
@@ -75,45 +80,57 @@ public class TicketBooth {
     //    calculateSalesProceeds(passport);
     //    return calculateChange(handedMoney);
     //}
-    
-    // TODO ito publicのbuyに対して実処理のbuyなわけですが、先頭文字を変える習慣があります by jflute (2025/09/12)
+
+    // TODO done ito publicのbuyに対して実処理のbuyなわけですが、先頭文字を変える習慣があります by jflute (2025/09/12)
     // (this.bu... で補完紛れで若干わかりにくくなるし、会話上もbuyメソッドって言った時どっちを指す？)
     // e.g. doBuyPassport(), internalBuyPassport() など
-    private int buyPassport(Passport passport, Integer handedMoney) {
-        // TODO ito せっかくなので、ショートカットを使った上で、流れリファクタリングしてみましょう by jflute (2025/09/12)
-        int quantity = getPassportQuantity(passport);
+    private int doBuyPassport(TicketType ticketType, Integer handedMoney) {
+        // TODO done ito せっかくなので、ショートカットを使った上で、流れリファクタリングしてみましょう by jflute (2025/09/12)
+        int quantity = getTicketQuantity(ticketType);
+        validatePurchaseCondition(ticketType, handedMoney, quantity);
+        setTicketQuantity(ticketType, quantity - 1);
+        increaseSalesProceeds(ticketType);
+        return calculateChange(handedMoney);
+    }
+
+    private static void validatePurchaseCondition(TicketType ticketType, Integer handedMoney, int quantity) {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        if (handedMoney < passport.price) {
+        if (handedMoney < ticketType.price) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
-        }
-        setPassportQuantity(passport, quantity - 1);
-        if (salesProceeds != null) {
-            salesProceeds += passport.price;
-        } else {
-            salesProceeds = passport.price;
-        }
-        return handedMoney - salesProceeds;
-    }
-    
-    private int getPassportQuantity(Passport passport) {
-        // TODO ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
-        // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
-        switch (passport) {
-        case ONE_DAY_PASSPORT:
-            return quantity;
-        case TWO_DAY_PASSPORT:
-            return twoDayPassportQuantity;
-        default:
-            throw new IllegalStateException("Unknown passport: " + passport);
         }
     }
 
-    private void setPassportQuantity(Passport passport, int newQuantity) {
-        switch (passport) {
+    private void increaseSalesProceeds(TicketType ticketType) {
+        if (salesProceeds != null) {
+            salesProceeds += ticketType.price;
+        } else {
+            salesProceeds = ticketType.price;
+        }
+    }
+
+    private int calculateChange(Integer handedMoney) {
+        return handedMoney - salesProceeds;
+    }
+
+    private int getTicketQuantity(TicketType ticketType) {
+        // TODO ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
+        // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
+        switch (ticketType) {
         case ONE_DAY_PASSPORT:
-            quantity = newQuantity;
+            return oneDayPassportQuantity;
+        case TWO_DAY_PASSPORT:
+            return twoDayPassportQuantity;
+        default:
+            throw new IllegalStateException("Unknown passport: " + ticketType);
+        }
+    }
+
+    private void setTicketQuantity(TicketType ticketType, int newQuantity) {
+        switch (ticketType) {
+        case ONE_DAY_PASSPORT:
+            oneDayPassportQuantity = newQuantity;
             break;
         case TWO_DAY_PASSPORT:
             twoDayPassportQuantity = newQuantity;
@@ -142,8 +159,8 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public int getQuantity() {
-        return quantity;
+    public int getOneDayPassportQuantity() {
+        return oneDayPassportQuantity;
     }
 
     public int getTwoDayPassportQuantity() {
