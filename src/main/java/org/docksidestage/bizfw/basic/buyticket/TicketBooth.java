@@ -15,7 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO done ito author追加お願いします by jflute (2025/09/12)
+// done ito author追加お願いします by jflute (2025/09/12)
 
 import static org.docksidestage.bizfw.basic.buyticket.TicketType.ONE_DAY_PASSPORT;
 import static org.docksidestage.bizfw.basic.buyticket.TicketType.TWO_DAY_PASSPORT;
@@ -34,7 +34,18 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO done ito quantity と twoDayPassportQuantity の違いは何ですか？と聞かれたら？ by jflute (2025/09/12)
+    // done ito quantity と twoDayPassportQuantity の違いは何ですか？と聞かれたら？ by jflute (2025/09/12)
+    //
+    // #1on1: おかげさまで、良いブログ書けました。ありがとうございます。 (2025/09/25)
+    // // 既存コードちょい直したい、いつやる？
+    // https://jflute.hatenadiary.jp/entry/20250913/whenrefactor
+    //
+    // 1秒でもいいから判断するステップを踏みたい話。
+    //
+    // ついでに:
+    // // 応援してる "A" にもデメリットはあるよ
+    // https://jflute.hatenadiary.jp/entry/20181008/yourademerit
+    //
     private int oneDayPassportQuantity = MAX_QUANTITY;
     private int twoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
@@ -56,6 +67,7 @@ public class TicketBooth {
     // * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
+    // TODO ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
     /**
      * Buy one-day passport, method for park guest.
      * @param handedMoney The money (amount) handed over from park guest. (NotNull, NotMinus)
@@ -67,6 +79,7 @@ public class TicketBooth {
         return new Ticket(ONE_DAY_PASSPORT);
     }
 
+    // TODO ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         int change = doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
         return new TicketBuyResult(new Ticket(TWO_DAY_PASSPORT), change);
@@ -82,11 +95,11 @@ public class TicketBooth {
     //    return calculateChange(handedMoney);
     //}
 
-    // TODO done ito publicのbuyに対して実処理のbuyなわけですが、先頭文字を変える習慣があります by jflute (2025/09/12)
+    // done ito publicのbuyに対して実処理のbuyなわけですが、先頭文字を変える習慣があります by jflute (2025/09/12)
     // (this.bu... で補完紛れで若干わかりにくくなるし、会話上もbuyメソッドって言った時どっちを指す？)
     // e.g. doBuyPassport(), internalBuyPassport() など
     private int doBuyPassport(TicketType ticketType, Integer handedMoney) {
-        // TODO done ito せっかくなので、ショートカットを使った上で、流れリファクタリングしてみましょう by jflute (2025/09/12)
+        // done ito せっかくなので、ショートカットを使った上で、流れリファクタリングしてみましょう by jflute (2025/09/12)
         int quantity = getTicketQuantity(ticketType);
         validatePurchaseCondition(ticketType, handedMoney, quantity);
         setTicketQuantity(ticketType, quantity - 1);

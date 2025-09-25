@@ -1,5 +1,6 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
+// TODO ito javadocお願いします by jflute (2025/09/25)
 public class TicketBuyResult {
     private final Ticket ticket;
     private final int change;

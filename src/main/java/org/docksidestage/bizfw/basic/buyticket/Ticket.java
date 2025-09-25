@@ -15,6 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+// TODO ito javadocにauthor追加お願いしますー by jflute (2025/09/25)
 /**
  * @author jflute
  */
@@ -54,6 +55,10 @@ public class Ticket {
         return ticketType;
     }
 
+    // #1on1: いったん、使い切ったかどうか？という解釈で。
+    // alreadyIn という既存変数が、機能追加によって曖昧になるケース
+    // #1on1: OSSのdeprecatedの運用話
+    // isAlreadyIn()の名前を変えても問題はないでしょう。(renameの機能を使えば)
     public boolean isAlreadyIn() {
         return entryCount >= ticketType.days;
     }

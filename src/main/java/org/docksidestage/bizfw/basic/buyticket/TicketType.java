@@ -16,7 +16,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 // ↑この説明のおかげで、いとりゅーさんの勘違いが発見できた (インスタンスは限定されている) (2025/09/12)
 // enumは暗黙的にabstractなEnumクラスを継承している、だからこそ別のクラスを継承できない。
 
-// TODO done ito せっかくなのでjavadocを by jflute (2025/09/12)
+// done ito せっかくなのでjavadocを by jflute (2025/09/12)
 
 /**
  * The type of ticket for entering the park.
@@ -28,6 +28,11 @@ package org.docksidestage.bizfw.basic.buyticket;
 public enum TicketType {
     ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2);
 
+    // TODO ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
+    // 内部の変数のリファクタリングをしたくなったときに、しづらくなっちゃう可能性はある。
+    // この場合のカプセル化は、enumの利用者が複数が想定されて、わりと広範囲になるかもしれないので。
+    // かつ、入れ物クラスってわけじゃなく、ロジックが変化していきそうなもの。
+    // (逆にpublicフィールドで割り切る例: LastaFluteのJSON対応クラスなど)
     public final int price;
     public final int days;
 
