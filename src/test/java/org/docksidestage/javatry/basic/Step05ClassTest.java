@@ -217,7 +217,14 @@ public class Step05ClassTest extends PlainTestCase {
      * (FourDayPassport (金額は22400) のチケットも買えるようにしましょう)
      */
     public void test_class_moreFix_wonder_four() {
-        // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int money = 24000;
+        TicketBuyResult result = booth.buyFourDayPassport(money);
+        Integer sea = booth.getSalesProceeds() + result.getChange();
+        log(sea); // should be same as money
+
+        // four-day passport quantity
+        log(booth.getFourDayPassportQuantity());
     }
 
     /**

@@ -48,6 +48,7 @@ public class TicketBooth {
     //
     private int oneDayPassportQuantity = MAX_QUANTITY;
     private int twoDayPassportQuantity = MAX_QUANTITY;
+    private int fourDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
     // ===================================================================================
@@ -83,6 +84,10 @@ public class TicketBooth {
     // TODO done ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         return doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
+    }
+
+    public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
+        return doBuyPassport(TicketType.FOUR_DAY_PASSPORT, handedMoney);
     }
 
     // #1on1: jfluteの流れを重視するリファクタリングのライブコーディング (2025/09/12)
@@ -137,6 +142,8 @@ public class TicketBooth {
             return oneDayPassportQuantity;
         case TWO_DAY_PASSPORT:
             return twoDayPassportQuantity;
+        case FOUR_DAY_PASSPORT:
+            return fourDayPassportQuantity;
         default:
             throw new IllegalStateException("Unknown passport: " + ticketType);
         }
@@ -149,6 +156,9 @@ public class TicketBooth {
             break;
         case TWO_DAY_PASSPORT:
             twoDayPassportQuantity = newQuantity;
+            break;
+        case FOUR_DAY_PASSPORT:
+            fourDayPassportQuantity = newQuantity;
             break;
         }
     }
@@ -180,6 +190,10 @@ public class TicketBooth {
 
     public int getTwoDayPassportQuantity() {
         return twoDayPassportQuantity;
+    }
+
+    public int getFourDayPassportQuantity() {
+        return fourDayPassportQuantity;
     }
 
     public Integer getSalesProceeds() {
