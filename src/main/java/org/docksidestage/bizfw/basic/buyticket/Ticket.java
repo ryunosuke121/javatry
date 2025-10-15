@@ -17,6 +17,10 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 // TODO done ito javadocにauthor追加お願いしますー by jflute (2025/09/25)
 
+import java.time.OffsetTime;
+
+import org.docksidestage.bizfw.basic.common.TimeProvider;
+
 /**
  * @author jflute
  * @author ryunosuke.ito
@@ -26,13 +30,15 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    private final TimeProvider timeProvider;
     private final TicketType ticketType;
     private int entryCount = 0;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(TicketType ticketType) {
+    public Ticket(TimeProvider timeProvider, TicketType ticketType) {
+        this.timeProvider = timeProvider;
         this.ticketType = ticketType;
     }
 
@@ -40,10 +46,22 @@ public class Ticket {
     //                                                                             In Park
     //                                                                             =======
     public void doInPark() {
+        validEnterCondition();
+        ++entryCount;
+    }
+
+    private void validEnterCondition() {
         if (entryCount >= ticketType.getDays()) {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + getDisplayPrice());
         }
-        ++entryCount;
+        if (ticketType == TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT && !isNightTime(timeProvider.now())) {
+            throw new IllegalStateException("Night time only ticket");
+        }
+    }
+
+    private boolean isNightTime(OffsetTime time) {
+        return time.isAfter(OffsetTime.of(17, 0, 0, 0, OffsetTime.now().getOffset())) || time.equals(
+                OffsetTime.of(17, 0, 0, 0, OffsetTime.now().getOffset()));
     }
 
     // ===================================================================================

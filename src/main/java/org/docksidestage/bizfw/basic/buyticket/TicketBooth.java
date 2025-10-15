@@ -20,6 +20,8 @@ package org.docksidestage.bizfw.basic.buyticket;
 import static org.docksidestage.bizfw.basic.buyticket.TicketType.ONE_DAY_PASSPORT;
 import static org.docksidestage.bizfw.basic.buyticket.TicketType.TWO_DAY_PASSPORT;
 
+import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
+
 /**
  * @author jflute
  * @author ryunosuke.ito
@@ -49,6 +51,7 @@ public class TicketBooth {
     private int oneDayPassportQuantity = MAX_QUANTITY;
     private int twoDayPassportQuantity = MAX_QUANTITY;
     private int fourDayPassportQuantity = MAX_QUANTITY;
+    private int nightOnlyTwoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
     // ===================================================================================
@@ -78,7 +81,7 @@ public class TicketBooth {
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
         doBuyPassport(ONE_DAY_PASSPORT, handedMoney);
-        return new Ticket(ONE_DAY_PASSPORT);
+        return new Ticket(new SystemTimeProvider(), ONE_DAY_PASSPORT);
     }
 
     // TODO done ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
@@ -88,6 +91,10 @@ public class TicketBooth {
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
         return doBuyPassport(TicketType.FOUR_DAY_PASSPORT, handedMoney);
+    }
+
+    public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
+        return doBuyPassport(TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT, handedMoney);
     }
 
     // #1on1: jfluteの流れを重視するリファクタリングのライブコーディング (2025/09/12)
@@ -110,7 +117,7 @@ public class TicketBooth {
         setTicketQuantity(ticketType, quantity - 1);
         increaseSalesProceeds(ticketType);
         int change = calculateChange(handedMoney);
-        return new TicketBuyResult(new Ticket(ticketType), change);
+        return new TicketBuyResult(new Ticket(new SystemTimeProvider(), ticketType), change);
     }
 
     private static void validatePurchaseCondition(TicketType ticketType, Integer handedMoney, int quantity) {
@@ -144,6 +151,8 @@ public class TicketBooth {
             return twoDayPassportQuantity;
         case FOUR_DAY_PASSPORT:
             return fourDayPassportQuantity;
+        case NIGHT_ONLY_TWO_DAY_PASSPORT:
+            return nightOnlyTwoDayPassportQuantity;
         default:
             throw new IllegalStateException("Unknown passport: " + ticketType);
         }
@@ -159,6 +168,9 @@ public class TicketBooth {
             break;
         case FOUR_DAY_PASSPORT:
             fourDayPassportQuantity = newQuantity;
+            break;
+        case NIGHT_ONLY_TWO_DAY_PASSPORT:
+            nightOnlyTwoDayPassportQuantity = newQuantity;
             break;
         }
     }
@@ -194,6 +206,10 @@ public class TicketBooth {
 
     public int getFourDayPassportQuantity() {
         return fourDayPassportQuantity;
+    }
+
+    public int getNightOnlyTwoDayPassportQuantity() {
+        return nightOnlyTwoDayPassportQuantity;
     }
 
     public Integer getSalesProceeds() {

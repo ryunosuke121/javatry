@@ -26,7 +26,7 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author ryunosuke.ito
  */
 public enum TicketType {
-    ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2), FOUR_DAY_PASSPORT(22400, 4);
+    ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2), FOUR_DAY_PASSPORT(22400, 4), NIGHT_ONLY_TWO_DAY_PASSPORT(7400, 2);
 
     // TODO done ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
     // 内部の変数のリファクタリングをしたくなったときに、しづらくなっちゃう可能性はある。

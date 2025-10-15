@@ -15,11 +15,14 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.time.OffsetTime;
+
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
+import org.docksidestage.bizfw.basic.common.TimeProvider;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -232,7 +235,44 @@ public class Step05ClassTest extends PlainTestCase {
      * (NightOnlyTwoDayPassport (金額は7400) のチケットも買えるようにしましょう。夜しか使えないようにしましょう)
      */
     public void test_class_moreFix_wonder_night() {
-        // your confirmation code here
+        test_can_buy_nightOnlyTwoDayPassport();
+
+        test_should_enter_park_only_when_in_night_time();
+    }
+
+    public void test_can_buy_nightOnlyTwoDayPassport() {
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult result = booth.buyNightOnlyTwoDayPassport(8000);
+        Integer sea = booth.getSalesProceeds() + result.getChange();
+        log(sea); // should be same as money
+        log(booth.getNightOnlyTwoDayPassportQuantity());
+    }
+
+    public void test_should_enter_park_only_when_in_night_time() {
+        MockTimeProvider mockTimeProvider = new MockTimeProvider(OffsetTime.of(16, 59, 59, 0, OffsetTime.now().getOffset()));
+        Ticket nightOnlyTwoDayPassport = new Ticket(mockTimeProvider, TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT);
+        try {
+            nightOnlyTwoDayPassport.doInPark();
+            fail("should be exception");
+        } catch (IllegalStateException e) {
+            log(e.getMessage()); // should be night time only ticketというエラーが出るはず
+        }
+        mockTimeProvider = new MockTimeProvider(OffsetTime.of(17, 0, 0, 0, OffsetTime.now().getOffset()));
+        nightOnlyTwoDayPassport = new Ticket(mockTimeProvider, TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT);
+        nightOnlyTwoDayPassport.doInPark();
+    }
+
+    static class MockTimeProvider implements TimeProvider {
+        private final java.time.OffsetTime time;
+
+        public MockTimeProvider(java.time.OffsetTime time) {
+            this.time = time;
+        }
+
+        @Override
+        public java.time.OffsetTime now() {
+            return time;
+        }
     }
 
     // ===================================================================================
