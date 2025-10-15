@@ -28,16 +28,23 @@ package org.docksidestage.bizfw.basic.buyticket;
 public enum TicketType {
     ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2);
 
-    // TODO ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
+    // TODO done ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
     // 内部の変数のリファクタリングをしたくなったときに、しづらくなっちゃう可能性はある。
     // この場合のカプセル化は、enumの利用者が複数が想定されて、わりと広範囲になるかもしれないので。
     // かつ、入れ物クラスってわけじゃなく、ロジックが変化していきそうなもの。
     // (逆にpublicフィールドで割り切る例: LastaFluteのJSON対応クラスなど)
-    public final int price;
-    public final int days;
+    private final int price;
+    private final int days;
 
     TicketType(int price, int days) {
         this.price = price;
         this.days = days;
+    }
+
+    public int getDays() {
+        return days;
+    }
+    public int getPrice() {
+        return price;
     }
 }

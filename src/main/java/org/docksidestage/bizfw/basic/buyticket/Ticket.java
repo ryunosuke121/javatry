@@ -15,9 +15,11 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO ito javadocにauthor追加お願いしますー by jflute (2025/09/25)
+// TODO done ito javadocにauthor追加お願いしますー by jflute (2025/09/25)
+
 /**
  * @author jflute
+ * @author ryunosuke.ito
  */
 public class Ticket {
 
@@ -38,7 +40,7 @@ public class Ticket {
     //                                                                             In Park
     //                                                                             =======
     public void doInPark() {
-        if (entryCount >= ticketType.days) {
+        if (entryCount >= ticketType.getDays()) {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + getDisplayPrice());
         }
         ++entryCount;
@@ -48,7 +50,7 @@ public class Ticket {
     //                                                                            Accessor
     //                                                                            ========
     public int getDisplayPrice() {
-        return ticketType.price;
+        return ticketType.getPrice();
     }
 
     public TicketType getTicketType() {
@@ -60,6 +62,6 @@ public class Ticket {
     // #1on1: OSSのdeprecatedの運用話
     // isAlreadyIn()の名前を変えても問題はないでしょう。(renameの機能を使えば)
     public boolean isAlreadyIn() {
-        return entryCount >= ticketType.days;
+        return entryCount >= ticketType.getDays();
     }
 }

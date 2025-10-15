@@ -67,22 +67,22 @@ public class TicketBooth {
     // * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
-    // TODO ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
+    // TODO done ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
     /**
-     * Buy one-day passport, method for park guest.
-     * @param handedMoney The money (amount) handed over from park guest. (NotNull, NotMinus)
-     * @throws TicketSoldOutException When ticket in booth is sold out.
-     * @throws TicketShortMoneyException When the specified money is short for purchase.
+     *
+     * @param handedMoney
+     * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
+     * @throws TicketShortMoneyException 買うのに金額が足りなかったら
+     * @return 購入した1日パスポートのチケット
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
         doBuyPassport(ONE_DAY_PASSPORT, handedMoney);
         return new Ticket(ONE_DAY_PASSPORT);
     }
 
-    // TODO ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
+    // TODO done ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        int change = doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
-        return new TicketBuyResult(new Ticket(TWO_DAY_PASSPORT), change);
+        return doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
     }
 
     // #1on1: jfluteの流れを重視するリファクタリングのライブコーディング (2025/09/12)
@@ -98,29 +98,30 @@ public class TicketBooth {
     // done ito publicのbuyに対して実処理のbuyなわけですが、先頭文字を変える習慣があります by jflute (2025/09/12)
     // (this.bu... で補完紛れで若干わかりにくくなるし、会話上もbuyメソッドって言った時どっちを指す？)
     // e.g. doBuyPassport(), internalBuyPassport() など
-    private int doBuyPassport(TicketType ticketType, Integer handedMoney) {
+    private TicketBuyResult doBuyPassport(TicketType ticketType, Integer handedMoney) {
         // done ito せっかくなので、ショートカットを使った上で、流れリファクタリングしてみましょう by jflute (2025/09/12)
         int quantity = getTicketQuantity(ticketType);
         validatePurchaseCondition(ticketType, handedMoney, quantity);
         setTicketQuantity(ticketType, quantity - 1);
         increaseSalesProceeds(ticketType);
-        return calculateChange(handedMoney);
+        int change = calculateChange(handedMoney);
+        return new TicketBuyResult(new Ticket(ticketType), change);
     }
 
     private static void validatePurchaseCondition(TicketType ticketType, Integer handedMoney, int quantity) {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        if (handedMoney < ticketType.price) {
+        if (handedMoney < ticketType.getPrice()) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
     }
 
     private void increaseSalesProceeds(TicketType ticketType) {
         if (salesProceeds != null) {
-            salesProceeds += ticketType.price;
+            salesProceeds += ticketType.getPrice();
         } else {
-            salesProceeds = ticketType.price;
+            salesProceeds = ticketType.getPrice();
         }
     }
 
