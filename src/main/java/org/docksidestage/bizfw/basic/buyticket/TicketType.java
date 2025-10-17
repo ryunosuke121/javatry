@@ -28,7 +28,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 public enum TicketType {
     ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2), FOUR_DAY_PASSPORT(22400, 4), NIGHT_ONLY_TWO_DAY_PASSPORT(7400, 2);
 
-    // TODO done ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
+    // done ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
     // 内部の変数のリファクタリングをしたくなったときに、しづらくなっちゃう可能性はある。
     // この場合のカプセル化は、enumの利用者が複数が想定されて、わりと広範囲になるかもしれないので。
     // かつ、入れ物クラスってわけじゃなく、ロジックが変化していきそうなもの。

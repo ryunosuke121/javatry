@@ -71,7 +71,8 @@ public class TicketBooth {
     // * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
-    // TODO done ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
+    // done ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
+    // TODO itoryu @param に説明を (Eclipseだと警告になっている) by jflute (2025/10/17)
     /**
      *
      * @param handedMoney
@@ -80,11 +81,14 @@ public class TicketBooth {
      * @return 購入した1日パスポートのチケット
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
-        doBuyPassport(ONE_DAY_PASSPORT, handedMoney);
+        // TODO itoryu すでにresultを作る処理が含まれているので、そこからticketだけ取得してもいいかなと by jflute (2025/10/17)
+        // 仮に、無駄処理を発生させないようにできたとしても、大した処理ではないので気にしなくてもいいレベルかと。
+        // (もし、calculateChange()がDB見たりRemoteAPI呼び出ししてたりとかしたら話は別ですが)
+        doBuyPassport(ONE_DAY_PASSPORT, handedMoney).getTicket();
         return new Ticket(new SystemTimeProvider(), ONE_DAY_PASSPORT);
     }
 
-    // TODO done ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
+    // done ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         return doBuyPassport(TWO_DAY_PASSPORT, handedMoney);
     }

@@ -205,6 +205,8 @@ public class Step05ClassTest extends PlainTestCase {
 
     // uncomment when you implement this exercise
     private void showTicketIfNeeds(Ticket ticket) {
+        // #1on1: もしgetDays()==2で判定していたら、nightの登場で破綻する話 (2025/10/17)
+        // 新機能を追加したら、既存のコードがおかしくなるケース。(既存のコードはさわってないに突然変な動きする)
         if (ticket.getTicketType() == TicketType.TWO_DAY_PASSPORT) { // write determination for two-day passport
             log("two-day passport");
         } else {
@@ -241,6 +243,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     public void test_can_buy_nightOnlyTwoDayPassport() {
+        // TODO itoryu 修行++: あとちょいの工夫で、TicketBoothで買ったnightOnlyでmockTimeできるはず by jflute (2025/10/17)
         TicketBooth booth = new TicketBooth();
         TicketBuyResult result = booth.buyNightOnlyTwoDayPassport(8000);
         Integer sea = booth.getSalesProceeds() + result.getChange();
