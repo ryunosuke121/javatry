@@ -17,8 +17,10 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 // done ito author追加お願いします by jflute (2025/09/12)
 
-import static org.docksidestage.bizfw.basic.buyticket.TicketType.ONE_DAY_PASSPORT;
-import static org.docksidestage.bizfw.basic.buyticket.TicketType.TWO_DAY_PASSPORT;
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.docksidestage.bizfw.basic.common.TimeProvider;
 
@@ -48,10 +50,7 @@ public class TicketBooth {
     // // 応援してる "A" にもデメリットはあるよ
     // https://jflute.hatenadiary.jp/entry/20181008/yourademerit
     //
-    private int oneDayPassportQuantity = MAX_QUANTITY;
-    private int twoDayPassportQuantity = MAX_QUANTITY;
-    private int fourDayPassportQuantity = MAX_QUANTITY;
-    private int nightOnlyTwoDayPassportQuantity = MAX_QUANTITY;
+    private final Map<TicketType, Integer> ticketMap = new HashMap<>();
     private Integer salesProceeds; // null allowed: until first purchase
     private final TimeProvider timeProvider;
 
@@ -60,6 +59,11 @@ public class TicketBooth {
     //                                                                         ===========
     public TicketBooth(TimeProvider timeProvider) {
         this.timeProvider = timeProvider;
+
+        ticketMap.put(ONE_DAY_PASSPORT, MAX_QUANTITY);
+        ticketMap.put(TWO_DAY_PASSPORT, MAX_QUANTITY);
+        ticketMap.put(FOUR_DAY_PASSPORT, MAX_QUANTITY);
+        ticketMap.put(NIGHT_ONLY_TWO_DAY_PASSPORT, MAX_QUANTITY);
     }
     // ===================================================================================
     //                                                                          Buy Ticket
@@ -94,7 +98,7 @@ public class TicketBooth {
     }
 
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
-        return doBuyPassport(TicketType.FOUR_DAY_PASSPORT, handedMoney);
+        return doBuyPassport(FOUR_DAY_PASSPORT, handedMoney);
     }
 
     public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
@@ -146,37 +150,13 @@ public class TicketBooth {
     }
 
     private int getTicketQuantity(TicketType ticketType) {
-        // TODO ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
+        // TODO done ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
         // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
-        switch (ticketType) {
-        case ONE_DAY_PASSPORT:
-            return oneDayPassportQuantity;
-        case TWO_DAY_PASSPORT:
-            return twoDayPassportQuantity;
-        case FOUR_DAY_PASSPORT:
-            return fourDayPassportQuantity;
-        case NIGHT_ONLY_TWO_DAY_PASSPORT:
-            return nightOnlyTwoDayPassportQuantity;
-        default:
-            throw new IllegalStateException("Unknown passport: " + ticketType);
-        }
+        return ticketMap.get(ticketType);
     }
 
     private void setTicketQuantity(TicketType ticketType, int newQuantity) {
-        switch (ticketType) {
-        case ONE_DAY_PASSPORT:
-            oneDayPassportQuantity = newQuantity;
-            break;
-        case TWO_DAY_PASSPORT:
-            twoDayPassportQuantity = newQuantity;
-            break;
-        case FOUR_DAY_PASSPORT:
-            fourDayPassportQuantity = newQuantity;
-            break;
-        case NIGHT_ONLY_TWO_DAY_PASSPORT:
-            nightOnlyTwoDayPassportQuantity = newQuantity;
-            break;
-        }
+        ticketMap.put(ticketType, newQuantity);
     }
 
     public static class TicketSoldOutException extends RuntimeException {
@@ -201,19 +181,19 @@ public class TicketBooth {
     //                                                                            Accessor
     //                                                                            ========
     public int getOneDayPassportQuantity() {
-        return oneDayPassportQuantity;
+        return ticketMap.get(ONE_DAY_PASSPORT);
     }
 
     public int getTwoDayPassportQuantity() {
-        return twoDayPassportQuantity;
+        return ticketMap.get(TWO_DAY_PASSPORT);
     }
 
     public int getFourDayPassportQuantity() {
-        return fourDayPassportQuantity;
+        return ticketMap.get(FOUR_DAY_PASSPORT);
     }
 
     public int getNightOnlyTwoDayPassportQuantity() {
-        return nightOnlyTwoDayPassportQuantity;
+        return ticketMap.get(NIGHT_ONLY_TWO_DAY_PASSPORT);
     }
 
     public Integer getSalesProceeds() {
