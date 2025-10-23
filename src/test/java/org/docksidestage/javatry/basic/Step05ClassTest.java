@@ -22,6 +22,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
+import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
 import org.docksidestage.bizfw.basic.common.TimeProvider;
 import org.docksidestage.unit.PlainTestCase;
 
@@ -46,7 +47,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (メソッド終了時の変数 sea の中身は？)
      */
     public void test_class_howToUse_basic() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         booth.buyOneDayPassport(7400);
         int sea = booth.getOneDayPassportQuantity();
         log(sea); // your answer? => 9
@@ -54,7 +55,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_overpay() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 10000 -> 7400(fix後)
@@ -63,7 +64,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => null
     }
@@ -76,7 +77,7 @@ public class Step05ClassTest extends PlainTestCase {
     // 在庫が減ってしまう
 
     private Integer doTest_class_ticket_wrongQuantity() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         int handedMoney = 7399;
         try {
             booth.buyOneDayPassport(handedMoney);
@@ -109,7 +110,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (受け取ったお金の分だけ売上が増えていく問題をクラスを修正して解決しましょう (以前のエクササイズのanswerの修正を忘れずに))
      */
     public void test_class_letsFix_salesProceedsIncrease() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // should be same as one-day price, visual check here
@@ -121,7 +122,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_makeMethod_twoday() {
         // uncomment after making the method
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         int money = 14000;
         TicketBuyResult result = booth.buyTwoDayPassport(money);
         Integer sea = booth.getSalesProceeds() + result.getChange();
@@ -136,7 +137,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (OneDayとTwoDayで冗長なロジックがあったら、クラス内のprivateメソッドなどで再利用しましょう (修正前と修正後の実行結果を確認))
      */
     public void test_class_letsFix_refactor_recycle() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         booth.buyOneDayPassport(10000);
         log(booth.getOneDayPassportQuantity(), booth.getSalesProceeds()); // should be same as before-fix
     }
@@ -150,7 +151,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_ticket() {
         // uncomment out after modifying the method
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isAlreadyIn()); // should be false
@@ -164,7 +165,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // uncomment after modifying the method
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         int handedMoney = 20000;
         TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
         Ticket twoDayPassport = buyResult.getTicket();
@@ -178,7 +179,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         int handedMoney = 20000;
         TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
         Ticket twoDayPassport = buyResult.getTicket();
@@ -195,7 +196,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_whetherTicketType() {
         // uncomment when you implement this exercise
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         showTicketIfNeeds(oneDayPassport);
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
@@ -222,7 +223,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (FourDayPassport (金額は22400) のチケットも買えるようにしましょう)
      */
     public void test_class_moreFix_wonder_four() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
         int money = 24000;
         TicketBuyResult result = booth.buyFourDayPassport(money);
         Integer sea = booth.getSalesProceeds() + result.getChange();
@@ -243,8 +244,8 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     public void test_can_buy_nightOnlyTwoDayPassport() {
-        // TODO itoryu 修行++: あとちょいの工夫で、TicketBoothで買ったnightOnlyでmockTimeできるはず by jflute (2025/10/17)
-        TicketBooth booth = new TicketBooth();
+        // TODO done itoryu 修行++: あとちょいの工夫で、TicketBoothで買ったnightOnlyでmockTimeできるはず by jflute (2025/10/17)
+        TicketBooth booth = new TicketBooth(new MockTimeProvider(OffsetTime.of(19, 0, 0, 0, OffsetTime.now().getOffset())));
         TicketBuyResult result = booth.buyNightOnlyTwoDayPassport(8000);
         Integer sea = booth.getSalesProceeds() + result.getChange();
         log(sea); // should be same as money

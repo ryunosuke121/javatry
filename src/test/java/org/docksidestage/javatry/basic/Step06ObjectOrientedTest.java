@@ -18,6 +18,7 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
+import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
 import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
@@ -119,7 +120,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [ticket booth info]
         //
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TicketBooth(new SystemTimeProvider());
 
         // *booth has these properties:
         //int oneDayPrice = 7400;
@@ -132,7 +133,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // if step05 has been finished, you can use this code by jflute (2019/06/15)
         //Ticket ticket = booth.buyOneDayPassport(10000);
         booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
-        Ticket ticket = new Ticket(TicketType.ONE_DAY_PASSPORT); // also here
+        Ticket ticket = new Ticket(new SystemTimeProvider(), TicketType.ONE_DAY_PASSPORT); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {

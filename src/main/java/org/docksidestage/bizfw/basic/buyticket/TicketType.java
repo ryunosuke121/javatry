@@ -26,7 +26,8 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author ryunosuke.ito
  */
 public enum TicketType {
-    ONE_DAY_PASSPORT(7400, 1), TWO_DAY_PASSPORT(13200, 2), FOUR_DAY_PASSPORT(22400, 4), NIGHT_ONLY_TWO_DAY_PASSPORT(7400, 2);
+    ONE_DAY_PASSPORT(7400, 1, false), TWO_DAY_PASSPORT(13200, 2, false), FOUR_DAY_PASSPORT(22400, 4, false), NIGHT_ONLY_TWO_DAY_PASSPORT(
+            7400, 2, true);
 
     // done ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
     // 内部の変数のリファクタリングをしたくなったときに、しづらくなっちゃう可能性はある。
@@ -35,10 +36,12 @@ public enum TicketType {
     // (逆にpublicフィールドで割り切る例: LastaFluteのJSON対応クラスなど)
     private final int price;
     private final int days;
+    private final boolean isNightOnlyTicket;
 
-    TicketType(int price, int days) {
+    TicketType(int price, int days, boolean isNightOnlyTicket) {
         this.price = price;
         this.days = days;
+        this.isNightOnlyTicket = isNightOnlyTicket;
     }
 
     public int getDays() {
@@ -46,5 +49,8 @@ public enum TicketType {
     }
     public int getPrice() {
         return price;
+    }
+    public boolean getIsNightOnlyTicket() {
+        return isNightOnlyTicket;
     }
 }

@@ -20,7 +20,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 import static org.docksidestage.bizfw.basic.buyticket.TicketType.ONE_DAY_PASSPORT;
 import static org.docksidestage.bizfw.basic.buyticket.TicketType.TWO_DAY_PASSPORT;
 
-import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
+import org.docksidestage.bizfw.basic.common.TimeProvider;
 
 /**
  * @author jflute
@@ -53,13 +53,14 @@ public class TicketBooth {
     private int fourDayPassportQuantity = MAX_QUANTITY;
     private int nightOnlyTwoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
+    private final TimeProvider timeProvider;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public TicketBooth() {
+    public TicketBooth(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
     }
-
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
@@ -72,10 +73,10 @@ public class TicketBooth {
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
     // done ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
-    // TODO itoryu @param に説明を (Eclipseだと警告になっている) by jflute (2025/10/17)
+    // TODO done itoryu @param に説明を (Eclipseだと警告になっている) by jflute (2025/10/17)
     /**
      *
-     * @param handedMoney
+     * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
      * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
      * @throws TicketShortMoneyException 買うのに金額が足りなかったら
      * @return 購入した1日パスポートのチケット
@@ -84,8 +85,7 @@ public class TicketBooth {
         // TODO itoryu すでにresultを作る処理が含まれているので、そこからticketだけ取得してもいいかなと by jflute (2025/10/17)
         // 仮に、無駄処理を発生させないようにできたとしても、大した処理ではないので気にしなくてもいいレベルかと。
         // (もし、calculateChange()がDB見たりRemoteAPI呼び出ししてたりとかしたら話は別ですが)
-        doBuyPassport(ONE_DAY_PASSPORT, handedMoney).getTicket();
-        return new Ticket(new SystemTimeProvider(), ONE_DAY_PASSPORT);
+        return doBuyPassport(ONE_DAY_PASSPORT, handedMoney).getTicket();
     }
 
     // done ito doBuyがresultを戻してしまってもいいのでは？ by jflute (2025/09/25)
@@ -121,7 +121,7 @@ public class TicketBooth {
         setTicketQuantity(ticketType, quantity - 1);
         increaseSalesProceeds(ticketType);
         int change = calculateChange(handedMoney);
-        return new TicketBuyResult(new Ticket(new SystemTimeProvider(), ticketType), change);
+        return new TicketBuyResult(new Ticket(this.timeProvider, ticketType), change);
     }
 
     private static void validatePurchaseCondition(TicketType ticketType, Integer handedMoney, int quantity) {
