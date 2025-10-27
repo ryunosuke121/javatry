@@ -17,7 +17,6 @@ package org.docksidestage.javatry.basic;
 
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
-import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
 import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
@@ -30,7 +29,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author ryunosuke.ito
  */
 public class Step06ObjectOrientedTest extends PlainTestCase {
 
@@ -51,7 +50,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // simulation: actually these variables should be more wide scope
         int oneDayPrice = 7400;
         int quantity = 10;
-        Integer salesProceeds = null;
+        Integer salesProceeds = 0;
 
         //
         // [buy one-day passport]
@@ -61,17 +60,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         if (quantity <= 0) {
             throw new IllegalStateException("Sold out");
         }
-        --quantity;
         if (handedMoney < oneDayPrice) {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
-        salesProceeds = handedMoney;
+        --quantity;
+        salesProceeds += oneDayPrice;
 
         //
         // [ticket info]
         //
         // simulation: actually these variables should be more wide scope
-        int displayPrice = quantity;
+        int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
         // other processes here...
@@ -90,7 +89,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn);
+        saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
@@ -131,19 +130,19 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // [buy one-day passport]
         //
         // if step05 has been finished, you can use this code by jflute (2019/06/15)
-        //Ticket ticket = booth.buyOneDayPassport(10000);
-        booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
-        Ticket ticket = new Ticket(new SystemTimeProvider(), TicketType.ONE_DAY_PASSPORT); // also here
+        Ticket ticket = booth.buyOneDayPassport(10000);
+        //        booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
+        //        Ticket ticket = new Ticket(new SystemTimeProvider(), TicketType.ONE_DAY_PASSPORT); // also here
 
         // *buyOneDayPassport() has this process:
-        //if (quantity <= 0) {
-        //    throw new TicketSoldOutException("Sold out");
-        //}
-        //if (handedMoney < oneDayPrice) {
-        //    throw new TicketShortMoneyException("Short money: handedMoney=" + handedMoney);
-        //}
-        //--quantity;
-        //salesProceeds = handedMoney;
+        //        if (quantity <= 0) {
+        //            throw new TicketSoldOutException("Sold out");
+        //        }
+        //        if (handedMoney < oneDayPrice) {
+        //            throw new TicketShortMoneyException("Short money: handedMoney=" + handedMoney);
+        //        }
+        //        --quantity;
+        //        salesProceeds = handedMoney;
 
         // *ticket has these properties:
         //int displayPrice = oneDayPrice;
@@ -189,7 +188,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // write your memo here:
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
     // what is object?
-    //
+    // 現実世界のモノや概念をプログラム上でクラスとして表現したもの。
+    // 振る舞いをメソッドやプロパティとして持たせることで、責務範囲を明確にし、コードの可読性や変更容易性を高める手法。
+    // オブジェクトにロジックをまとめていると、機能が追加されたり変更されたりした場合でも
+    // ロジックが散らばっていないので、影響範囲を限定でき、保守性が向上する。
+    // また、現実世界に照らし合わせるという基準があることで、開発者にとって理解しやすくなる。
     // _/_/_/_/_/_/_/_/_/_/
 
     // ===================================================================================
@@ -203,9 +206,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Dog dog = new Dog();
         BarkedSound sound = dog.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = dog.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -213,9 +216,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Dog();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -223,9 +226,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = createAnyAnimal();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
     }
 
     private Animal createAnyAnimal() {
@@ -241,9 +244,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void doAnimalSeaLand_for_4th(Animal animal) {
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -251,9 +254,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Cat();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => nya-
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 5
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -261,9 +264,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Zombie();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => -1
     }
 
     /**
@@ -274,7 +277,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is happy?
-        //
+        // 共通の振る舞いを抽象化できるため、コードの再利用性が向上する。
+        // 共通して変更が必要な場合、一箇所の修正で済むため、保守性が高まる。
+        // 異なる具体的なクラスに対しても同じインターフェースで操作できるため、柔軟性が増す。
         // _/_/_/_/_/_/_/_/_/_/
     }
 
