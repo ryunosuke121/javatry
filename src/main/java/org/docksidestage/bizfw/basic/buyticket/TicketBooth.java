@@ -50,7 +50,7 @@ public class TicketBooth {
     // // 応援してる "A" にもデメリットはあるよ
     // https://jflute.hatenadiary.jp/entry/20181008/yourademerit
     //
-    private final Map<TicketType, Integer> ticketMap = new HashMap<>();
+    private final Map<TicketType, Integer> ticketStockMap = new HashMap<>();
     private Integer salesProceeds; // null allowed: until first purchase
     private final TimeProvider timeProvider;
 
@@ -59,11 +59,14 @@ public class TicketBooth {
     //                                                                         ===========
     public TicketBooth(TimeProvider timeProvider) {
         this.timeProvider = timeProvider;
+        initTicketStockMap();
+    }
 
-        ticketMap.put(ONE_DAY_PASSPORT, MAX_QUANTITY);
-        ticketMap.put(TWO_DAY_PASSPORT, MAX_QUANTITY);
-        ticketMap.put(FOUR_DAY_PASSPORT, MAX_QUANTITY);
-        ticketMap.put(NIGHT_ONLY_TWO_DAY_PASSPORT, MAX_QUANTITY);
+    private void initTicketStockMap() {
+        ticketStockMap.put(ONE_DAY_PASSPORT, MAX_QUANTITY);
+        ticketStockMap.put(TWO_DAY_PASSPORT, MAX_QUANTITY);
+        ticketStockMap.put(FOUR_DAY_PASSPORT, MAX_QUANTITY);
+        ticketStockMap.put(NIGHT_ONLY_TWO_DAY_PASSPORT, MAX_QUANTITY);
     }
     // ===================================================================================
     //                                                                          Buy Ticket
@@ -152,11 +155,11 @@ public class TicketBooth {
     private int getTicketQuantity(TicketType ticketType) {
         // TODO done ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
         // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
-        return ticketMap.get(ticketType);
+        return ticketStockMap.get(ticketType);
     }
 
     private void setTicketQuantity(TicketType ticketType, int newQuantity) {
-        ticketMap.put(ticketType, newQuantity);
+        ticketStockMap.put(ticketType, newQuantity);
     }
 
     public static class TicketSoldOutException extends RuntimeException {
@@ -181,19 +184,19 @@ public class TicketBooth {
     //                                                                            Accessor
     //                                                                            ========
     public int getOneDayPassportQuantity() {
-        return ticketMap.get(ONE_DAY_PASSPORT);
+        return ticketStockMap.get(ONE_DAY_PASSPORT);
     }
 
     public int getTwoDayPassportQuantity() {
-        return ticketMap.get(TWO_DAY_PASSPORT);
+        return ticketStockMap.get(TWO_DAY_PASSPORT);
     }
 
     public int getFourDayPassportQuantity() {
-        return ticketMap.get(FOUR_DAY_PASSPORT);
+        return ticketStockMap.get(FOUR_DAY_PASSPORT);
     }
 
     public int getNightOnlyTwoDayPassportQuantity() {
-        return ticketMap.get(NIGHT_ONLY_TWO_DAY_PASSPORT);
+        return ticketStockMap.get(NIGHT_ONLY_TWO_DAY_PASSPORT);
     }
 
     public Integer getSalesProceeds() {
