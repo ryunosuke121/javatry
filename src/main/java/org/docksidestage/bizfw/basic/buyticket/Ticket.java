@@ -38,6 +38,10 @@ public class Ticket {
     //                                                                         Constructor
     //                                                                         ===========
     // TODO done itoryu 引数を変えたことで、step6のクラスで影響が出ているので、正しく動作するように(step6を)修正しましょう by jflute (2025/10/17)
+    /***
+     * @param timeProvider 時間を管理するクラス。内部で現在時刻を取得するために使用される。 (例：入門ゲートでの入場時刻の検証)
+     * @param ticketType チケットの種類。チケットの価格や有効日数、ナイトチケットかどうかの情報を持つ。
+     */
     public Ticket(TimeProvider timeProvider, TicketType ticketType) {
         this.timeProvider = timeProvider;
         this.ticketType = ticketType;
@@ -47,6 +51,10 @@ public class Ticket {
     //                                                                             In Park
     //                                                                             =======
     // #1on1: 入門ゲートという概念 by itoryuさん
+    /**
+     * 入場ゲートでの入場処理を行います。<br>
+     * このメソッドは、入場可能かどうかを検証し、入場回数を更新します。<br>
+     */
     public void doInPark() {
         validateEntryConditions();
         ++entryCount;
@@ -73,10 +81,18 @@ public class Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
+    /**
+     * ディスプレイ用の価格を取得します。
+     * @return ディスプレイ用の価格
+     */
     public int getDisplayPrice() {
         return ticketType.getPrice();
     }
 
+    /**
+     * チケットの種類を取得します。
+     * @return チケットの種類
+     */
     public TicketType getTicketType() {
         return ticketType;
     }
@@ -85,6 +101,11 @@ public class Ticket {
     // alreadyIn という既存変数が、機能追加によって曖昧になるケース
     // #1on1: OSSのdeprecatedの運用話
     // isAlreadyIn()の名前を変えても問題はないでしょう。(renameの機能を使えば)
+    /**
+     * チケットがすでに使用されているかどうかを判定します。
+     * もし、チケットの入場回数が有効日数以上であれば、trueを返します。
+     * @return チケットがすでに使用されている場合はtrue、そうでない場合はfalse
+     */
     public boolean isAlreadyIn() {
         return entryCount >= ticketType.getDays();
     }
