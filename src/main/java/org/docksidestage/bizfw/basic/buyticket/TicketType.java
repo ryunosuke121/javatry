@@ -26,6 +26,7 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author ryunosuke.ito
  */
 public enum TicketType {
+    // TODO itoryu //技を使ってみてください by jflute (2025/10/28)
     ONE_DAY_PASSPORT(7400, 1, false), TWO_DAY_PASSPORT(13200, 2, false), FOUR_DAY_PASSPORT(22400, 4, false), NIGHT_ONLY_TWO_DAY_PASSPORT(
             7400, 2, true);
 
@@ -50,6 +51,8 @@ public enum TicketType {
     public int getPrice() {
         return price;
     }
+    // TODO itoryu booleanはgetじゃなくisでやる慣習あり by jflute (2025/10/28)
+    //  e.g. isNightOnlyTicket()
     public boolean getIsNightOnlyTicket() {
         return isNightOnlyTicket;
     }

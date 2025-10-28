@@ -50,10 +50,13 @@ public class TicketBooth {
     // // 応援してる "A" にもデメリットはあるよ
     // https://jflute.hatenadiary.jp/entry/20181008/yourademerit
     //
+    // #1on1: Quantityクラスを使ったもう一個のやり方の話 (2025/10/28)
+    // TODO itoryu timeProviderは受け取った主軸のデータということで一番上に by jflute (2025/10/28)
+    // (Ticketクラスの変数の並びがとても自然なので、そっちに合わせる)
+    private final TimeProvider timeProvider;
     private final Map<TicketType, Integer> ticketStockMap = new HashMap<>();
     private Integer salesProceeds; // null allowed: until first purchase
-    private final TimeProvider timeProvider;
-
+    
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -63,6 +66,19 @@ public class TicketBooth {
     }
 
     private void initTicketStockMap() {
+        // #1on1: MAXが個別にならない割り切りの場合の実装:
+        //for (TicketType ticketType : TicketType.values()) {
+        //    ticketStockMap.put(ticketType, MAX_QUANTITY);
+        //}
+        // 一方で、MAXが個別に変わる可能性を想定して列挙してるのはそれはそれで良い。
+        // ただ、getterのところで追加し忘れたときの例外ハンドリングをしておきましょう。
+        //
+        // 一方で一方で、maxをTicketTypeに持たせちゃってもいいかも。
+        //for (TicketType ticketType : TicketType.values()) {
+        //    ticketStockMap.put(ticketType, ticketType.getMaxQuantity());
+        //}
+        // 在庫の概念は TicketBooth にもたせておきたい by itoryu
+        //
         ticketStockMap.put(ONE_DAY_PASSPORT, MAX_QUANTITY);
         ticketStockMap.put(TWO_DAY_PASSPORT, MAX_QUANTITY);
         ticketStockMap.put(FOUR_DAY_PASSPORT, MAX_QUANTITY);
@@ -80,7 +96,7 @@ public class TicketBooth {
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
     // done ito javadoc, @returnを追加で (日本語でOK) by jflute (2025/09/25)
-    // TODO done itoryu @param に説明を (Eclipseだと警告になっている) by jflute (2025/10/17)
+    // done itoryu @param に説明を (Eclipseだと警告になっている) by jflute (2025/10/17)
     /**
      *
      * @param handedMoney パークゲストから手渡しされたお金(金額) (NotNull, NotMinus)
@@ -89,7 +105,7 @@ public class TicketBooth {
      * @return 購入した1日パスポートのチケット
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
-        // TODO itoryu すでにresultを作る処理が含まれているので、そこからticketだけ取得してもいいかなと by jflute (2025/10/17)
+        // done itoryu すでにresultを作る処理が含まれているので、そこからticketだけ取得してもいいかなと by jflute (2025/10/17)
         // 仮に、無駄処理を発生させないようにできたとしても、大した処理ではないので気にしなくてもいいレベルかと。
         // (もし、calculateChange()がDB見たりRemoteAPI呼び出ししてたりとかしたら話は別ですが)
         return doBuyPassport(ONE_DAY_PASSPORT, handedMoney).getTicket();
@@ -153,8 +169,9 @@ public class TicketBooth {
     }
 
     private int getTicketQuantity(TicketType ticketType) {
-        // TODO done ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
+        // done ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
         // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
+        // TODO itoryu stockに種別を追加し忘れたときのために、例外ハンドリング入れておきましょう by jflute (2025/10/28)
         return ticketStockMap.get(ticketType);
     }
 

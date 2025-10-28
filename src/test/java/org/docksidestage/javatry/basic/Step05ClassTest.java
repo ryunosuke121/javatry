@@ -244,7 +244,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     public void test_can_buy_nightOnlyTwoDayPassport() {
-        // TODO done itoryu 修行++: あとちょいの工夫で、TicketBoothで買ったnightOnlyでmockTimeできるはず by jflute (2025/10/17)
+        // done itoryu 修行++: あとちょいの工夫で、TicketBoothで買ったnightOnlyでmockTimeできるはず by jflute (2025/10/17)
         TicketBooth booth = new TicketBooth(new MockTimeProvider(OffsetTime.of(19, 0, 0, 0, OffsetTime.now().getOffset())));
         TicketBuyResult result = booth.buyNightOnlyTwoDayPassport(8000);
         Integer sea = booth.getSalesProceeds() + result.getChange();

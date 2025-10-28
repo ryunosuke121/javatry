@@ -21,6 +21,8 @@ import java.time.OffsetTime;
 
 import org.docksidestage.bizfw.basic.common.TimeProvider;
 
+// #1on1: NxBatchRecorderのコードコメントを参考に一緒に読んでみた (2025/10/28)
+// (あと、会社のコード、OSSの自分のコード、ケースによってコメントの書き方も変わる)
 /**
  * @author jflute
  * @author ryunosuke.ito
@@ -37,7 +39,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    // TODO done itoryu 引数を変えたことで、step6のクラスで影響が出ているので、正しく動作するように(step6を)修正しましょう by jflute (2025/10/17)
+    // done itoryu 引数を変えたことで、step6のクラスで影響が出ているので、正しく動作するように(step6を)修正しましょう by jflute (2025/10/17)
     /***
      * @param timeProvider 時間を管理するクラス。内部で現在時刻を取得するために使用される。 (例：入門ゲートでの入場時刻の検証)
      * @param ticketType チケットの種類。チケットの価格や有効日数、ナイトチケットかどうかの情報を持つ。
@@ -46,7 +48,7 @@ public class Ticket {
         this.timeProvider = timeProvider;
         this.ticketType = ticketType;
     }
-
+    
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
@@ -60,19 +62,20 @@ public class Ticket {
         ++entryCount;
     }
 
-    // TODO done itoryu validよりはvalidateの方が直感的かなと (動詞始まり) by jflute (2025/10/17)
+    // done itoryu validよりはvalidateの方が直感的かなと (動詞始まり) by jflute (2025/10/17)
     private void validateEntryConditions() {
         if (entryCount >= ticketType.getDays()) {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + getDisplayPrice());
         }
-        // TODO done itoryu 他にもnightなチケット種別が増えた時、ここに条件を増やさないといけない by jflute (2025/10/17)
+        // done itoryu 他にもnightなチケット種別が増えた時、ここに条件を増やさないといけない by jflute (2025/10/17)
         if (ticketType.getIsNightOnlyTicket() && !isNightTime(timeProvider.now())) {
             throw new IllegalStateException("Night time only ticket");
         }
     }
 
     private boolean isNightTime(OffsetTime time) {
-        // TODO done itoryu 17時の表現が2回登場して、かつ長いのでちょっとstatementの区切りがわかりづらいので... by jflute (2025/10/17)
+        // TODO itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
+        // done itoryu 17時の表現が2回登場して、かつ長いのでちょっとstatementの区切りがわかりづらいので... by jflute (2025/10/17)
         // IntelliJで変数抽出してみましょう。(control+Tからのメニュー)
         OffsetTime startTime = OffsetTime.of(17, 0, 0, 0, OffsetTime.now().getOffset());
         return time.isAfter(startTime) || time.equals(startTime);
@@ -81,6 +84,8 @@ public class Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
+    // #1on1: getterに関しては、ほぼ直感的なメソッドになるので...jfluteだったら、説明部分だけを省略しちゃいます。
+    // TODO itoryu 説明部分は省略でOK by jflute (2025/10/28)
     /**
      * ディスプレイ用の価格を取得します。
      * @return ディスプレイ用の価格
