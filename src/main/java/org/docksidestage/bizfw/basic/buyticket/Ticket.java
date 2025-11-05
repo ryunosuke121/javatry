@@ -17,12 +17,14 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 // done ito javadocにauthor追加お願いしますー by jflute (2025/09/25)
 
+import java.time.LocalTime;
 import java.time.OffsetTime;
 
 import org.docksidestage.bizfw.basic.common.TimeProvider;
 
 // #1on1: NxBatchRecorderのコードコメントを参考に一緒に読んでみた (2025/10/28)
 // (あと、会社のコード、OSSの自分のコード、ケースによってコメントの書き方も変わる)
+
 /**
  * @author jflute
  * @author ryunosuke.ito
@@ -48,7 +50,7 @@ public class Ticket {
         this.timeProvider = timeProvider;
         this.ticketType = ticketType;
     }
-    
+
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
@@ -68,26 +70,25 @@ public class Ticket {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + getDisplayPrice());
         }
         // done itoryu 他にもnightなチケット種別が増えた時、ここに条件を増やさないといけない by jflute (2025/10/17)
-        if (ticketType.getIsNightOnlyTicket() && !isNightTime(timeProvider.now())) {
+        if (ticketType.isNightOnlyTicket() && !isNightTime(timeProvider.now())) {
             throw new IllegalStateException("Night time only ticket");
         }
     }
 
     private boolean isNightTime(OffsetTime time) {
-        // TODO itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
+        // TODO done itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
         // done itoryu 17時の表現が2回登場して、かつ長いのでちょっとstatementの区切りがわかりづらいので... by jflute (2025/10/17)
-        // IntelliJで変数抽出してみましょう。(control+Tからのメニュー)
-        OffsetTime startTime = OffsetTime.of(17, 0, 0, 0, OffsetTime.now().getOffset());
-        return time.isAfter(startTime) || time.equals(startTime);
+        // IntelliJで変数抽出してみましょう。(control+Tからのメニュー);
+        LocalTime localTime = time.toLocalTime();
+        return localTime.isAfter(this.ticketType.getNightStartTime()) || localTime.equals(this.ticketType.getNightStartTime());
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     // #1on1: getterに関しては、ほぼ直感的なメソッドになるので...jfluteだったら、説明部分だけを省略しちゃいます。
-    // TODO itoryu 説明部分は省略でOK by jflute (2025/10/28)
+    // TODO done itoryu 説明部分は省略でOK by jflute (2025/10/28)
     /**
-     * ディスプレイ用の価格を取得します。
      * @return ディスプレイ用の価格
      */
     public int getDisplayPrice() {

@@ -18,6 +18,8 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 // done ito せっかくなのでjavadocを by jflute (2025/09/12)
 
+import java.time.LocalTime;
+
 /**
  * The type of ticket for entering the park.
  * <pre>
@@ -26,9 +28,11 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author ryunosuke.ito
  */
 public enum TicketType {
-    // TODO itoryu //技を使ってみてください by jflute (2025/10/28)
-    ONE_DAY_PASSPORT(7400, 1, false), TWO_DAY_PASSPORT(13200, 2, false), FOUR_DAY_PASSPORT(22400, 4, false), NIGHT_ONLY_TWO_DAY_PASSPORT(
-            7400, 2, true);
+    // TODO done itoryu //技を使ってみてください by jflute (2025/10/28)
+    ONE_DAY_PASSPORT(7400, 1, false, null), // 1日券
+    TWO_DAY_PASSPORT(13200, 2, false, null), // 2日券
+    FOUR_DAY_PASSPORT(22400, 4, false, null), // 4日券
+    NIGHT_ONLY_TWO_DAY_PASSPORT(7400, 2, true, LocalTime.of(17, 0, 0)); // ナイト2日券
 
     // done ito publicでもfinalだからそこまで悪くはないけど... by jflute (2025/09/25)
     // 内部の変数のリファクタリングをしたくなったときに、しづらくなっちゃう可能性はある。
@@ -38,22 +42,33 @@ public enum TicketType {
     private final int price;
     private final int days;
     private final boolean isNightOnlyTicket;
+    private final LocalTime nightStartTime; // 17時以降
 
-    TicketType(int price, int days, boolean isNightOnlyTicket) {
+    TicketType(int price, int days, boolean isNightOnlyTicket, LocalTime nightStartTime) {
         this.price = price;
         this.days = days;
         this.isNightOnlyTicket = isNightOnlyTicket;
+        this.nightStartTime = nightStartTime;
     }
 
+    // ===================================================================================
+    //                                                                              Getter
+    //                                                                            ========
     public int getDays() {
         return days;
     }
+
     public int getPrice() {
         return price;
     }
-    // TODO itoryu booleanはgetじゃなくisでやる慣習あり by jflute (2025/10/28)
+
+    // TODO done itoryu booleanはgetじゃなくisでやる慣習あり by jflute (2025/10/28)
     //  e.g. isNightOnlyTicket()
-    public boolean getIsNightOnlyTicket() {
+    public boolean isNightOnlyTicket() {
         return isNightOnlyTicket;
+    }
+
+    public LocalTime getNightStartTime() {
+        return nightStartTime;
     }
 }

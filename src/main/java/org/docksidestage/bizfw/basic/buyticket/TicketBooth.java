@@ -51,12 +51,12 @@ public class TicketBooth {
     // https://jflute.hatenadiary.jp/entry/20181008/yourademerit
     //
     // #1on1: Quantityクラスを使ったもう一個のやり方の話 (2025/10/28)
-    // TODO itoryu timeProviderは受け取った主軸のデータということで一番上に by jflute (2025/10/28)
+    // TODO done itoryu timeProviderは受け取った主軸のデータということで一番上に by jflute (2025/10/28)
     // (Ticketクラスの変数の並びがとても自然なので、そっちに合わせる)
     private final TimeProvider timeProvider;
     private final Map<TicketType, Integer> ticketStockMap = new HashMap<>();
     private Integer salesProceeds; // null allowed: until first purchase
-    
+
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -171,8 +171,12 @@ public class TicketBooth {
     private int getTicketQuantity(TicketType ticketType) {
         // done ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
         // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
-        // TODO itoryu stockに種別を追加し忘れたときのために、例外ハンドリング入れておきましょう by jflute (2025/10/28)
-        return ticketStockMap.get(ticketType);
+        // TODO done itoryu stockに種別を追加し忘れたときのために、例外ハンドリング入れておきましょう by jflute (2025/10/28)
+        Integer ticketStock = ticketStockMap.get(ticketType);
+        if (ticketStock == null) {
+            throw new IllegalStateException("Ticket stock not found for type: " + ticketType);
+        }
+        return ticketStock;
     }
 
     private void setTicketQuantity(TicketType ticketType, int newQuantity) {
