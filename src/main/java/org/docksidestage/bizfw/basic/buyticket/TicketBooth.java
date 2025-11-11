@@ -16,8 +16,10 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
 // done ito author追加お願いします by jflute (2025/09/12)
-
-import static org.docksidestage.bizfw.basic.buyticket.TicketType.*;
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.FOUR_DAY_PASSPORT;
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT;
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.ONE_DAY_PASSPORT;
+import static org.docksidestage.bizfw.basic.buyticket.TicketType.TWO_DAY_PASSPORT;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +53,7 @@ public class TicketBooth {
     // https://jflute.hatenadiary.jp/entry/20181008/yourademerit
     //
     // #1on1: Quantityクラスを使ったもう一個のやり方の話 (2025/10/28)
-    // TODO done itoryu timeProviderは受け取った主軸のデータということで一番上に by jflute (2025/10/28)
+    // done itoryu timeProviderは受け取った主軸のデータということで一番上に by jflute (2025/10/28)
     // (Ticketクラスの変数の並びがとても自然なので、そっちに合わせる)
     private final TimeProvider timeProvider;
     private final Map<TicketType, Integer> ticketStockMap = new HashMap<>();
@@ -84,6 +86,7 @@ public class TicketBooth {
         ticketStockMap.put(FOUR_DAY_PASSPORT, MAX_QUANTITY);
         ticketStockMap.put(NIGHT_ONLY_TWO_DAY_PASSPORT, MAX_QUANTITY);
     }
+
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
@@ -171,7 +174,7 @@ public class TicketBooth {
     private int getTicketQuantity(TicketType ticketType) {
         // done ito 修行++: switch case (分岐) なしで実現したいところですが...最後で by jflute (2025/09/12)
         // #1on1: しばらく耐えてください (step5の最後まではとりあえずこれで)
-        // TODO done itoryu stockに種別を追加し忘れたときのために、例外ハンドリング入れておきましょう by jflute (2025/10/28)
+        // done itoryu stockに種別を追加し忘れたときのために、例外ハンドリング入れておきましょう by jflute (2025/10/28)
         Integer ticketStock = ticketStockMap.get(ticketType);
         if (ticketStock == null) {
             throw new IllegalStateException("Ticket stock not found for type: " + ticketType);

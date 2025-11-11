@@ -28,7 +28,7 @@ import java.time.LocalTime;
  * @author ryunosuke.ito
  */
 public enum TicketType {
-    // TODO done itoryu //技を使ってみてください by jflute (2025/10/28)
+    // done itoryu //技を使ってみてください by jflute (2025/10/28)
     ONE_DAY_PASSPORT(7400, 1, false, null), // 1日券
     TWO_DAY_PASSPORT(13200, 2, false, null), // 2日券
     FOUR_DAY_PASSPORT(22400, 4, false, null), // 4日券
@@ -62,7 +62,7 @@ public enum TicketType {
         return price;
     }
 
-    // TODO done itoryu booleanはgetじゃなくisでやる慣習あり by jflute (2025/10/28)
+    // done itoryu booleanはgetじゃなくisでやる慣習あり by jflute (2025/10/28)
     //  e.g. isNightOnlyTicket()
     public boolean isNightOnlyTicket() {
         return isNightOnlyTicket;

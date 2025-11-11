@@ -19,6 +19,8 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.docksidestage.bizfw.basic.common.TimeProvider;
 
@@ -74,20 +76,53 @@ public class Ticket {
             throw new IllegalStateException("Night time only ticket");
         }
     }
-
+    
+    // ===================================================================================
+    //                                                                          Night Time
+    //                                                                          ==========
     private boolean isNightTime(OffsetTime time) {
-        // TODO done itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
+        // done itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
         // done itoryu 17時の表現が2回登場して、かつ長いのでちょっとstatementの区切りがわかりづらいので... by jflute (2025/10/17)
         // IntelliJで変数抽出してみましょう。(control+Tからのメニュー);
+        // TODO itoryu getNightStartTime()も変数抽出してみましょう by jflute (2025/11/11)
+        // 一番目視で確認したいところは比較条件、その行がすっきり、比較条件が見やすくなってるかどうか？
+        // 特に、booleanの判定は、システムは分岐させるものなので、できるだけすっきりさせる。
+        // (すっきりさせるために行は多くしちゃってもいいという判断)
+        // #1on1: if文の//コメントの例: DBFluteのコードを少し参考に
+        // if文の濃度のニュアンスを伝える、50%:50%なのか？99%:1%なのか？は読み手にとって大違い。
         LocalTime localTime = time.toLocalTime();
-        return localTime.isAfter(this.ticketType.getNightStartTime()) || localTime.equals(this.ticketType.getNightStartTime());
+        return localTime.isAfter(ticketType.getNightStartTime()) || localTime.equals(ticketType.getNightStartTime());
     }
+    
+    // #1on1: ソースコードの体裁にこだわる話 (2025/11/11)
+    // タグコメントから、カテゴリ、コードの形などなど
+    // 空行に意味がある話
+    /*
+    private final TimeProvider timeProvider;
+    private final TimeProvider timeProvider;
+    private final XxxxxProvider timeProvider;
+    private final YyyyyyProvider timeProvider;
+    
+    // sea系業務
+    private final Map<TicketType, Integer> ticketStockMap = new HashMap<>();
+    private Integer uuuuuuuuuuuProce; // null allowed: until first purchase
+    private Integer salesProceeds; // null allowed: until first purchase
 
+    // land系業務
+    private final Map<TicketType, Integer> ticketXxxxxxxMap = new HashMap<>();
+    private Integer eeeeeeProce; // null allowed: until first purchase
+    
+    // piari系業務
+    private final Map<TicketType, Integer> yyyyyyyXxxxxxxMap = new HashMap<>();
+    private Integer yyyyyyyyProce; // null allowed: until first purchase
+    private Integer xxxxxxxxxProce; // null allowed: until first purchase
+     */
+    
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     // #1on1: getterに関しては、ほぼ直感的なメソッドになるので...jfluteだったら、説明部分だけを省略しちゃいます。
-    // TODO done itoryu 説明部分は省略でOK by jflute (2025/10/28)
+    // done itoryu 説明部分は省略でOK by jflute (2025/10/28)
     /**
      * @return ディスプレイ用の価格
      */
