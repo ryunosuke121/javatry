@@ -290,18 +290,18 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     public void test_objectOriented_polymorphism_interface_dispatch() {
         Loudable loudable = new Zombie();
         String sea = loudable.soundLoudly();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         String land = ((Zombie) loudable).bark().getBarkWord();
-        log(land); // your answer? => 
+        log(land); // your answer? => uooo
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_interface_hierarchy() {
         Loudable loudable = new AlarmClock();
         String sea = loudable.soundLoudly();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => jiri jiri jiri---
         boolean land = loudable instanceof Animal;
-        log(land); // your answer? => 
+        log(land); // your answer? => false
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -309,9 +309,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal seaAnimal = new Cat();
         Animal landAnimal = new Zombie();
         boolean sea = seaAnimal instanceof FastRunner;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
         boolean land = landAnimal instanceof FastRunner;
-        log(land); // your answer? => 
+        log(land); // your answer? => false
     }
 
     /**
@@ -320,6 +320,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_interface_runnerImpl() {
         // your confirmation code here
+        Animal dog = new Dog();
+        boolean isImplemented = dog instanceof FastRunner;
+        log(isImplemented); // should be true
     }
 
     /**
@@ -330,7 +333,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is difference?
-        //
+        // 抽象クラスはサブクラスの共通の基盤を提供するようなもので、犬は動物の一種であるというような所属関係を持つ。
+        // インターフェイスは振る舞いを定義するもので、猫やアラーム時計が音を出すという振る舞いを共通化するが、
+        // そこに所属関係はない。
         // _/_/_/_/_/_/_/_/_/_/
     }
 
