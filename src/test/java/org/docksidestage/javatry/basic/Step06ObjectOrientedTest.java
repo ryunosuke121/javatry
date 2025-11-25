@@ -19,9 +19,16 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
 import org.docksidestage.bizfw.basic.objanimal.*;
+import org.docksidestage.bizfw.basic.objanimal.climb.Climbable;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
+import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
+import org.docksidestage.javatry.basic.st6.os.St6MacOS;
+import org.docksidestage.javatry.basic.st6.os.St6OldWindows;
+import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
+import org.docksidestage.javatry.basic.st6.os.St6Windows;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -348,6 +355,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeConcrete() {
         // your confirmation code here
+        Animal animal = new Lion();
+        BarkedSound sound = animal.bark();
+        String sea = sound.getBarkWord();
+        log(sea); // your answer? => nya-
+        int land = animal.getHitPoint();
+        log(land); // 4
     }
 
     /**
@@ -356,6 +369,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeInterface() {
         // your confirmation code here
+        Animal animal = new Cat();
+        if (animal instanceof Climbable) {
+            ((Climbable) animal).climb();
+        }
+
+        animal = new Dog();
+        if (animal instanceof Climbable) {
+            ((Climbable) animal).climb();
+        } else {
+            log("not climbable");
+        }
     }
 
     // ===================================================================================
@@ -367,6 +391,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
+        St6MySql mySql = new St6MySql();
+        log(mySql.buildPagingQuery(10, 20));
+
+        St6PostgreSql postgreSql = new St6PostgreSql();
+        log(postgreSql.buildPagingQuery(10, 20));
     }
 
     /**
@@ -375,6 +404,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_specialization_extractToConcrete() {
         // your confirmation code here
+        String loginId = "itoryu";
+        String relativePath = "document/memo.txt";
+        St6OperationSystem os = new St6MacOS(loginId);
+        log(os.buildUserResourcePath(relativePath));
+        os = new St6Windows(loginId);
+        log(os.buildUserResourcePath(relativePath));
+        os = new St6OldWindows(loginId);
+        log(os.buildUserResourcePath(relativePath));
     }
 
     // ===================================================================================

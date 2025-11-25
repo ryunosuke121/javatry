@@ -15,6 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.objanimal;
 
+import org.docksidestage.bizfw.basic.objanimal.climb.Climbable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * The object for cat(猫).
  * @author jflute
  */
-public class Cat extends Animal implements FastRunner {
+public class Cat extends Animal implements FastRunner, Climbable {
 
     // ===================================================================================
     //                                                                          Definition
@@ -50,6 +51,15 @@ public class Cat extends Animal implements FastRunner {
     @Override
     public void run() {
         logger.debug("...Running now"); // dummy implementation
+        downHitPoint();
+    }
+
+    // ===================================================================================
+    //                                                                               Climb
+    //                                                                              ======
+    @Override
+    public void climb() {
+        logger.debug("...Climbing now");
         downHitPoint();
     }
 
