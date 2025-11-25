@@ -19,8 +19,6 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.docksidestage.bizfw.basic.common.TimeProvider;
 
@@ -76,7 +74,7 @@ public class Ticket {
             throw new IllegalStateException("Night time only ticket");
         }
     }
-    
+
     // ===================================================================================
     //                                                                          Night Time
     //                                                                          ==========
@@ -84,16 +82,17 @@ public class Ticket {
         // done itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
         // done itoryu 17時の表現が2回登場して、かつ長いのでちょっとstatementの区切りがわかりづらいので... by jflute (2025/10/17)
         // IntelliJで変数抽出してみましょう。(control+Tからのメニュー);
-        // TODO itoryu getNightStartTime()も変数抽出してみましょう by jflute (2025/11/11)
+        // TODO done itoryu getNightStartTime()も変数抽出してみましょう by jflute (2025/11/11)
         // 一番目視で確認したいところは比較条件、その行がすっきり、比較条件が見やすくなってるかどうか？
         // 特に、booleanの判定は、システムは分岐させるものなので、できるだけすっきりさせる。
         // (すっきりさせるために行は多くしちゃってもいいという判断)
         // #1on1: if文の//コメントの例: DBFluteのコードを少し参考に
         // if文の濃度のニュアンスを伝える、50%:50%なのか？99%:1%なのか？は読み手にとって大違い。
         LocalTime localTime = time.toLocalTime();
-        return localTime.isAfter(ticketType.getNightStartTime()) || localTime.equals(ticketType.getNightStartTime());
+        LocalTime nightStartTime = ticketType.getNightStartTime();
+        return localTime.isAfter(nightStartTime) || localTime.equals(nightStartTime);
     }
-    
+
     // #1on1: ソースコードの体裁にこだわる話 (2025/11/11)
     // タグコメントから、カテゴリ、コードの形などなど
     // 空行に意味がある話
@@ -117,7 +116,7 @@ public class Ticket {
     private Integer yyyyyyyyProce; // null allowed: until first purchase
     private Integer xxxxxxxxxProce; // null allowed: until first purchase
      */
-    
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
