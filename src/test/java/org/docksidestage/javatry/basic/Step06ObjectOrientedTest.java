@@ -84,6 +84,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ...
         // ...
 
+        // TODO itoryu ここから先、3つ間違いがある by jflute (2025/11/25)
         //
         // [do in park now!!!]
         //
@@ -99,6 +100,26 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
+    // #1on1: int, int, int...問題 (2025/11/25)
+    //
+    // まず作り手として、極力こういうの作らないようにする意識。
+    // オブジェクトを活用、Value Objectを活用。(より構造化することでint,intを無くす)
+    // 小テクニックとして、booleanを真ん中に混ぜるなどなど...色々工夫
+    //
+    // 一方で、呼び出し側としては...
+    // 単純には、指差し確認をする。
+    // ただ、全部で指差し確認をするかと言ったら？さすがに時間が掛かるのでしない。
+    // じゃあ、指差し確認をするところ、しないところってどう線引されるのか？
+    // 「saveBuyingHistory()のところだけ指差し確認をする」ってできるか？
+    // 同じ型が並んでると怖いって感じがする by いとりゅうさん
+    // 怖いという感情がとても大切 by jflute
+    //
+    // 経験から、色々なバグを見てきて、こういうところにバグがよく潜んでる、ってのを知ってる。
+    // 同じ体験しても、なぜバグったのか？バグった構造とかを気にしたかどうか？その積み重ねをしてきたかどうか？
+    // それによって個人差が生まれる。「なので、振り返りが大事」 by いとりゅうさん
+    // 自分がよく間違うポイントっていうのも思い出を積み重ねているかどうか？
+    //
+    // ものづくりスキル。
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // simulation: only logging here (normally e.g. DB insert)
@@ -201,6 +222,18 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // ロジックが散らばっていないので、影響範囲を限定でき、保守性が向上する。
     // また、現実世界に照らし合わせるという基準があることで、開発者にとって理解しやすくなる。
     // _/_/_/_/_/_/_/_/_/_/
+    // #1on1: 責務範囲という言葉Good。何がオブジェクトなのか？何がオブジェクトの粒度なのか？ (2025/11/25)
+    // step5,step6の流れのコンセプトの話。
+    
+    // #1on1: 付け焼き刃で覚えたものを中長期の記憶にするために振り返り話 (2025/11/25)
+    // 覚えたことのセオリーを明確にすることで覚えやすくなる。
+    // (あと、記憶の探索の話)
+    
+    // #1on1: 正しい構造で装飾されたもの、間違った構造で装飾されたもの、は大違い (2025/11/25)
+    // 「まだベタ書きの方がマシ」って言われないように。
+    
+    // #1on1: javatryのオブジェクト指向のエクササイズのコンセプト (2025/11/25)
+    // シンプルな構造で読むトレーニング、体験。それが業務やライブラリのコードを読む第一歩。
 
     // ===================================================================================
     //                                                              Polymorphism Beginning
