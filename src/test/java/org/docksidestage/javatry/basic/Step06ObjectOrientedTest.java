@@ -84,13 +84,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ...
         // ...
 
-        // TODO itoryu ここから先、3つ間違いがある by jflute (2025/11/25)
+        // done itoryu ここから先、3つ間違いがある by jflute (2025/11/25)
+        // #1on1: その場で見つけてもらった、例外メッセージの中 (2025/12/08)
+        // ここではTicketに関する処理なので、TicketBoothの情報ではなく、TicketのdisplayPrice
+        // メッセージのUnitTestをする現場も少ないので、こういうのは本番まで残りやすい。
         //
         // [do in park now!!!]
         //
         // simulation: actually this process should be called by other trigger
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + displayPrice);
         }
         alreadyIn = true;
 
@@ -123,8 +126,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // simulation: only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            // #1on1: その場で見つけてもらった。引数の順序とか、int間違い、やっぱり怖い (2025/12/08)
+            showTicketBooth(quantity, salesProceeds);
+            showYourTicket(displayPrice, alreadyIn);
         }
     }
 
@@ -321,6 +325,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 共通して変更が必要な場合、一箇所の修正で済むため、保守性が高まる。
         // 異なる具体的なクラスに対しても同じインターフェースで操作できるため、柔軟性が増す。
         // _/_/_/_/_/_/_/_/_/_/
+        // #1on1: 要点まとまってて良い。多態性、多相性の特徴が表現されている。 (2025/12/08)
+        // 日常でもポリモーフィズムを使って便利に会話してる話。
     }
 
     // ===================================================================================
@@ -377,6 +383,33 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // インターフェイスは振る舞いを定義するもので、猫やアラーム時計が音を出すという振る舞いを共通化するが、
         // そこに所属関係はない。
         // _/_/_/_/_/_/_/_/_/_/
+        // #1on1: is-aの関係と、can-doの関係 (2025/12/08)
+        //
+        // コンセプトが違う:
+        // o オブジェクト指向は、オブジェクト(概念)を中心に整理整頓する考え方
+        // o インターフェースは、操作を中心に整理整頓する考え方 (呼び手が大事、AがBを呼ぶの関係性が中心)
+        //
+        // 似てる部分がある:
+        // o オブジェクト指向: ポリモーフィズム、具象クラスの形付け(実装継承)
+        // o インターフェース: ポリモーフィズム (のみ、基本的には)
+        //
+        // なぜインターフェース (最初から) 導入された？
+        // パット見、オブジェクト指向が機能を包含しているように見える。
+        // もちろん、コンセプトが違うよってのはあるけど、それだけで包含される機能を導入するか？
+        //
+        // Javaは多重継承ができない。(あえて導入しなかった)
+        // 昔、C++にて多重継承ができると、なかなかカオスになった話。
+        // Javaのオブジェクト指向は機能制限が掛かっている。
+        //
+        // そこで、インターフェースくん。こっちは複数定義(複数implements)できる。
+        // あれ？したら、多重継承と同じカオスなっちゃわない？
+        // インターフェースは、多重ポリモーフィズムはできるけど、多重実装継承はできない。
+        // で、カオスに原因は、多重ポリモーフィズムではなく、多重実装継承の方なので、
+        // インターフェースなら、複数定義してもそこまで大変ではないだろうという考え方。
+        // 多重実装継承できなくて実装が重複してしまいそうなところは、継承じゃなくて委譲で再利用。
+        //
+        
+        // TODO jflute 次回1on1, 別のinterfaceの使われ方 (2025/12/08)
     }
 
     // ===================================================================================
