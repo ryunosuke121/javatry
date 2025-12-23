@@ -59,11 +59,17 @@ public abstract class Animal implements Loudable {
         return new BarkingProcess(this);
     }
 
+    // TODO itoryu 修行++: 内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
+    // なんとかして、protectedに戻しましょう。(カプセル化としてpublicは良いことではない)
+    // (ここは...downHitPoint()とはレベルが全然違うシンプルな話)
     public abstract String getBarkWord();
 
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
+    // TODO itoryu 修行#: 同じように内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
+    // なんとかして、protectedに戻しましょう。(こっちは内部を壊せるメソッドなので絶対にpublicにしたくない)
+    // (ここは難しいので、stepを進めながら、思いついたときにやるような感じでOK)
     public void downHitPoint() {
         --hitPoint;
         if (hitPoint <= 0) {

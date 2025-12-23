@@ -57,6 +57,14 @@ public class Zombie extends Animal {
     //                                                                              ======
     @Override
     protected BarkingProcess createBarkingProcess() {
+        // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+        // #1on1: [いいね]具象クラスと具象クラスのポリモーフィズムをうまく使っている (2025/12/23)
+        //
+        // ZombieBarkingProcess extends BarkingProcess
+        //
+        // Animalでは、BarkingProcess で扱ってるけど、
+        // Zombieの場合は実体が ZombieBarkingProcess になる。 
+        // _/_/_/_/_/_/_/_/
         return new BarkingProcess(this) {
             @Override
             protected void breatheIn() {
@@ -65,6 +73,45 @@ public class Zombie extends Animal {
             }
         };
     }
+
+    // #1on1: ↑のzombieDiaryの参照が、ちょっとトリッキーに見える(by itoryuさん)との話 (2025/12/23)
+    // 確かに、二段上のリソースを直接参照している感はある。ただ、よく使われるやり方ではある。
+    // もし、これを避けたい場合は、以下のやり方:
+    //
+    // インスタンス所属インナークラスパターン:
+    // o 多段ではなく、段階を踏んでzombieDiaryを受け取ってる感じ
+    // 
+    //    public class ZombieBarkingProcess extends BarkingProcess {
+    //        
+    //        public ZombieBarkingProcess(Animal animal) {
+    //            super(animal);
+    //        }
+    //        
+    //        @Override
+    //        protected void breatheIn() {
+    //            super.breatheIn();
+    //            zombieDiary.countBreatheIn();
+    //        }
+    //    }
+    //
+    // 独立インナークラスパターン:
+    // o 実質、ファイルを分けた独立クラスとほぼ同じ扱い。
+    // o こっちだと、引数でリレーしてる感ある。(そうしたい場合はこちら)
+    //    public static class ZombieBarkingProcess extends BarkingProcess {
+    //
+    //        private final ZombieDiary zombieDiary;
+    //        
+    //        public ZombieBarkingProcess(Animal animal, ZombieDiary zombieDiary) {
+    //            super(animal);
+    //            this.zombieDiary = zombieDiary;
+    //        }
+    //
+    //        @Override
+    //        protected void breatheIn() {
+    //            super.breatheIn();
+    //            zombieDiary.countBreatheIn();
+    //        }
+    //    }
 
     @Override
     public String getBarkWord() {

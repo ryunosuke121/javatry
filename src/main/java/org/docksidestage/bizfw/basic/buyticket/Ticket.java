@@ -82,7 +82,7 @@ public class Ticket {
         // done itoryu チケット種別で、18時始まりのnightOnlyが追加されたらどうする？ by jflute (2025/10/28)
         // done itoryu 17時の表現が2回登場して、かつ長いのでちょっとstatementの区切りがわかりづらいので... by jflute (2025/10/17)
         // IntelliJで変数抽出してみましょう。(control+Tからのメニュー);
-        // TODO done itoryu getNightStartTime()も変数抽出してみましょう by jflute (2025/11/11)
+        // done itoryu getNightStartTime()も変数抽出してみましょう by jflute (2025/11/11)
         // 一番目視で確認したいところは比較条件、その行がすっきり、比較条件が見やすくなってるかどうか？
         // 特に、booleanの判定は、システムは分岐させるものなので、できるだけすっきりさせる。
         // (すっきりさせるために行は多くしちゃってもいいという判断)

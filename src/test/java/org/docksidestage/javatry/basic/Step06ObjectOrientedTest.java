@@ -32,6 +32,9 @@ import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
 import org.docksidestage.javatry.basic.st6.os.St6Windows;
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO itoryu [読み物課題] こうはい extends せんぱい by jflute (2025/12/23)
+// https://jflute.hatenadiary.jp/entry/20131124/extendsmaster
+
 /**
  * The test of object-oriented. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
