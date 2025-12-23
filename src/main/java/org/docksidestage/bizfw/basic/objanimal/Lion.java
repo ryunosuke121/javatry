@@ -16,7 +16,7 @@ public class Lion extends Animal {
     public Lion() {
     }
 
-    protected String getBarkWord() {
+    public String getBarkWord() {
         return "gaoo";
     }
 
@@ -26,7 +26,7 @@ public class Lion extends Animal {
     }
 
     @Override
-    protected void downHitPoint() {
+    public void downHitPoint() {
         super.downHitPoint();
         if (hitPoint % 4 == 0) {
             super.downHitPoint();

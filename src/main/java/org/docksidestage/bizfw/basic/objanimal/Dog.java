@@ -39,7 +39,7 @@ public class Dog extends Animal implements FastRunner {
     // ===================================================================================
     //                                                                               Bark
     //                                                                              ======
-    protected String getBarkWord() {
+    public String getBarkWord() {
         return "wan"; // bow? in English
     }
 
@@ -51,12 +51,12 @@ public class Dog extends Animal implements FastRunner {
         logger.debug("...Running now");
         downHitPoint();
     }
-    
+
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
     @Override
-    protected void downHitPoint() {
+    public void downHitPoint() {
         super.downHitPoint();
         if (hitPoint % 2 == 0) {
             super.downHitPoint();

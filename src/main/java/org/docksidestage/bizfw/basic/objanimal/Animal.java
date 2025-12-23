@@ -15,6 +15,8 @@
  */
 package org.docksidestage.bizfw.basic.objanimal;
 
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,34 +52,19 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     public BarkedSound bark() {
-        breatheIn();
-        prepareAbdominalMuscle();
-        String barkWord = getBarkWord();
-        BarkedSound barkedSound = doBark(barkWord);
-        return barkedSound;
+        return createBarkingProcess().execute();
     }
 
-    protected void breatheIn() { // actually depends on barking
-        logger.debug("...Breathing in for barking"); // dummy implementation
-        downHitPoint();
+    protected BarkingProcess createBarkingProcess() {
+        return new BarkingProcess(this);
     }
 
-    protected void prepareAbdominalMuscle() { // also actually depends on barking
-        logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
-        downHitPoint();
-    }
-
-    protected abstract String getBarkWord();
-
-    protected BarkedSound doBark(String barkWord) {
-        downHitPoint();
-        return new BarkedSound(barkWord);
-    }
+    public abstract String getBarkWord();
 
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
-    protected void downHitPoint() {
+    public void downHitPoint() {
         --hitPoint;
         if (hitPoint <= 0) {
             throw new IllegalStateException("I'm very tired, so I want to sleep" + getBarkWord());

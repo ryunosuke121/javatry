@@ -19,6 +19,7 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.common.SystemTimeProvider;
 import org.docksidestage.bizfw.basic.objanimal.*;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.climb.Climbable;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
@@ -228,14 +229,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // _/_/_/_/_/_/_/_/_/_/
     // #1on1: 責務範囲という言葉Good。何がオブジェクトなのか？何がオブジェクトの粒度なのか？ (2025/11/25)
     // step5,step6の流れのコンセプトの話。
-    
+
     // #1on1: 付け焼き刃で覚えたものを中長期の記憶にするために振り返り話 (2025/11/25)
     // 覚えたことのセオリーを明確にすることで覚えやすくなる。
     // (あと、記憶の探索の話)
-    
+
     // #1on1: 正しい構造で装飾されたもの、間違った構造で装飾されたもの、は大違い (2025/11/25)
     // 「まだベタ書きの方がマシ」って言われないように。
-    
+
     // #1on1: javatryのオブジェクト指向のエクササイズのコンセプト (2025/11/25)
     // シンプルな構造で読むトレーニング、体験。それが業務やライブラリのコードを読む第一歩。
 
@@ -408,7 +409,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // インターフェースなら、複数定義してもそこまで大変ではないだろうという考え方。
         // 多重実装継承できなくて実装が重複してしまいそうなところは、継承じゃなくて委譲で再利用。
         //
-        
+
         // TODO jflute 次回1on1, 別のinterfaceの使われ方 (2025/12/08)
     }
 
@@ -489,6 +490,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withDelegation() {
         // your confirmation code here
+        Animal animal = new Zombie();
+        BarkedSound sound = animal.bark();
+        String sea = sound.getBarkWord();
+        log(sea); // your answer? => uooo
+        int land = animal.getHitPoint();
+        log(land); // your answer? => -1
     }
 
     /**
@@ -510,6 +517,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withPackageRefactoring() {
         // your confirmation code here
+        Animal animal = new Zombie();
+        BarkedSound sound = animal.bark();
+        String sea = sound.getBarkWord();
+        log(sea); // your answer? => uooo
     }
 
     /**
@@ -520,7 +531,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // is it corrent?
-        //
+        // 独自のプロパティを持っているせいで
+        // なんか変なコードになってしまった。なのでもしかしたらサブクラスとして不適切なのかもしれない。
+        // でも継承先が独自のプロパティを持つべきではないっていうのはやり過ぎ感あるので、結局よくわからない。
         // _/_/_/_/_/_/_/_/_/_/
     }
 }

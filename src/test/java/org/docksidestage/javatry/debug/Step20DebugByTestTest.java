@@ -15,11 +15,10 @@
  */
 package org.docksidestage.javatry.debug;
 
-import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
-import org.docksidestage.bizfw.basic.objanimal.Dog;
-import org.docksidestage.unit.PlainTestCase;
-
 import junit.framework.AssertionFailedError;
+import org.docksidestage.bizfw.basic.objanimal.Dog;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
+import org.docksidestage.unit.PlainTestCase;
 
 /**
  * The test of Debug by Test using JUnit. <br>
