@@ -21,6 +21,7 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// #1on1: プログラミングデザインは、部屋の肩付け(模様替え)と同じ感覚 (2025/12/23)
 /**
  * The object for animal(動物).
  * @author jflute
