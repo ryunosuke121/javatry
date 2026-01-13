@@ -63,6 +63,8 @@ public abstract class Animal implements Loudable {
     // TODO itoryu 修行++: 内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
     // なんとかして、protectedに戻しましょう。(カプセル化としてpublicは良いことではない)
     // (ここは...downHitPoint()とはレベルが全然違うシンプルな話)
+    // #1on1: ColorBoxインターフェースところの話とつなげたのは素晴らしい (2026/01/13)
+    // ただ、ここの修行は、半隠蔽ではなく、完全隠蔽で（＾＾／。
     public abstract String getBarkWord();
 
     // ===================================================================================

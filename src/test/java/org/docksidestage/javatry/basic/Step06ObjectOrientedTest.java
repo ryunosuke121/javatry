@@ -24,6 +24,8 @@ import org.docksidestage.bizfw.basic.objanimal.climb.Climbable;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.bizfw.colorbox.ColorBox;
+import org.docksidestage.bizfw.colorbox.space.BoxSpace;
 import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
 import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
 import org.docksidestage.javatry.basic.st6.os.St6MacOS;
@@ -413,7 +415,35 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 多重実装継承できなくて実装が重複してしまいそうなところは、継承じゃなくて委譲で再利用。
         //
 
-        // TODO jflute 次回1on1, 別のinterfaceの使われ方 (2025/12/08)
+        // done jflute 次回1on1, 別のinterfaceの使われ方 (2025/12/08)
+        // #1on1:
+        // public abstract class AbstractColorBox implements ColorBox {
+        // ListとArrayListも同じ構造。
+        // メリット:
+        // o 呼べるメソッドが見やすい (公開publicメソッド一覧)
+        // o 内部用publicメソッドを半隠蔽できる
+        // public void initialize() { // 内部用publicメソッド...なのに外部から呼べちゃう
+        //    // ここでDB接続の初期化を行うなど
+        //    addSpace(new BoxSpace(spaceSize));
+        //    addSpace(new BoxSpace(spaceSize));
+        //}
+        // o ラッパークラスとかダミークラスとか、実装継承したくない具象クラスが作れる
+        //
+        // ポリモーフィズムと実装継承の機能の「二つがある」というのは「混在している」とも言える。
+        // 外交はインターフェースに任せて、内政は抽象クラスがやる。
+        // 一方で、抽象クラスもポリモーフィズム使ってないわけではなく、
+        // 内部用publicメソッドを呼ぶ時は、抽象クラスによるポリモーフィズムになる。
+        
+        // #1on1: インターフェースのdefaultメソッドの話 (2026/01/13)
+        // 実装継承やり過ぎると多重継承カオス、でもreturn false;とかのシンプルは便利。
+
+        // #1on1: enumのインターフェースの話 (2026/01/13)
+        // DBFluteのCDef.javaを例に。
+        // LastaFluteのappclsで要素定義を再利用する話。
+        // 現場でのレイヤーごとの同じ概念の区分値の要素構成の違いの吸収方法について。
+
+        // #1on1: dfpropのファイル形式の話 (2026/01/13)
+        // JSONが世の中で一般的でない時代に作ったもの。
     }
 
     // ===================================================================================

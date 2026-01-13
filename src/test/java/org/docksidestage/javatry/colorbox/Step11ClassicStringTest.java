@@ -17,6 +17,7 @@ package org.docksidestage.javatry.colorbox;
 
 import java.util.List;
 
+import org.docksidestage.bizfw.colorbox.AbstractColorBox;
 import org.docksidestage.bizfw.colorbox.ColorBox;
 import org.docksidestage.bizfw.colorbox.color.BoxColor;
 import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
