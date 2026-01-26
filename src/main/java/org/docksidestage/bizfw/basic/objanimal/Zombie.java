@@ -65,7 +65,7 @@ public class Zombie extends Animal {
         // Animalでは、BarkingProcess で扱ってるけど、
         // Zombieの場合は実体が ZombieBarkingProcess になる。 
         // _/_/_/_/_/_/_/_/
-        return new BarkingProcess(this) {
+        return new BarkingProcess(this::downHitPoint, getBarkWord()) {
             @Override
             protected void breatheIn() {
                 super.breatheIn();

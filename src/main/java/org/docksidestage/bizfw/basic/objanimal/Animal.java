@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // #1on1: プログラミングデザインは、部屋の肩付け(模様替え)と同じ感覚 (2025/12/23)
+
 /**
  * The object for animal(動物).
  * @author jflute
@@ -57,23 +58,23 @@ public abstract class Animal implements Loudable {
     }
 
     protected BarkingProcess createBarkingProcess() {
-        return new BarkingProcess(this);
+        return new BarkingProcess(this::downHitPoint, getBarkWord());
     }
 
-    // TODO itoryu 修行++: 内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
+    // TODO done itoryu 修行++: 内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
     // なんとかして、protectedに戻しましょう。(カプセル化としてpublicは良いことではない)
     // (ここは...downHitPoint()とはレベルが全然違うシンプルな話)
     // #1on1: ColorBoxインターフェースところの話とつなげたのは素晴らしい (2026/01/13)
     // ただ、ここの修行は、半隠蔽ではなく、完全隠蔽で（＾＾／。
-    public abstract String getBarkWord();
+    protected abstract String getBarkWord();
 
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
-    // TODO itoryu 修行#: 同じように内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
+    // TODO done itoryu 修行#: 同じように内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
     // なんとかして、protectedに戻しましょう。(こっちは内部を壊せるメソッドなので絶対にpublicにしたくない)
     // (ここは難しいので、stepを進めながら、思いついたときにやるような感じでOK)
-    public void downHitPoint() {
+    protected void downHitPoint() {
         --hitPoint;
         if (hitPoint <= 0) {
             throw new IllegalStateException("I'm very tired, so I want to sleep" + getBarkWord());
