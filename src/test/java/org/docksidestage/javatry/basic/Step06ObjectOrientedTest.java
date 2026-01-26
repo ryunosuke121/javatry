@@ -24,8 +24,6 @@ import org.docksidestage.bizfw.basic.objanimal.climb.Climbable;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
-import org.docksidestage.bizfw.colorbox.ColorBox;
-import org.docksidestage.bizfw.colorbox.space.BoxSpace;
 import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
 import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
 import org.docksidestage.javatry.basic.st6.os.St6MacOS;
@@ -433,7 +431,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 外交はインターフェースに任せて、内政は抽象クラスがやる。
         // 一方で、抽象クラスもポリモーフィズム使ってないわけではなく、
         // 内部用publicメソッドを呼ぶ時は、抽象クラスによるポリモーフィズムになる。
-        
+
         // #1on1: インターフェースのdefaultメソッドの話 (2026/01/13)
         // 実装継承やり過ぎると多重継承カオス、でもreturn false;とかのシンプルは便利。
 
@@ -458,9 +456,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Lion();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => nya-
+        log(sea); // your answer? => gaoo
         int land = animal.getHitPoint();
-        log(land); // 4
+        log(land); // 6
     }
 
     /**
