@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 // #1on1: プログラミングデザインは、部屋の肩付け(模様替え)と同じ感覚 (2025/12/23)
 
+// TODO itoryu javatryのjavadoc流に、authorの追加を。全体的にstep6のクラス見直してください by jflute (2026/01/27)
 /**
  * The object for animal(動物).
  * @author jflute
@@ -32,6 +33,7 @@ public abstract class Animal implements Loudable {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
+    // TODO itoryu もうすでにunused by jflute (2026/01/27)
     private static final Logger logger = LoggerFactory.getLogger(Animal.class);
 
     // ===================================================================================
@@ -58,20 +60,33 @@ public abstract class Animal implements Loudable {
     }
 
     protected BarkingProcess createBarkingProcess() {
+        // #1on1: コールバック少しだけstep8の先取り (2026/01/27)
+        // 無名インナークラスから、Lambda式から、メソッド参照。
+        // 無名のオブジェクトだからこそ隠すことができている。(限定的な仲介役を作ることができる)
+        // #1on1: オブジェクト指向とコールバック方式のコラボ (2026/01/27)
+        // (IntelliJで、downHitPoint補完したらメソッド参照になっただけだったので仕組みがわかってよかった by itoryuさん)
+        // Lambda式はJava8から。(2015年あたり) → step8でじっくり予定。
+        // メソッド参照のjfluteの好みの話。Scalaの省略すごい話と絡めて。
+        // #1on1: Javaのvarのお話も (2026/01/27)
         return new BarkingProcess(this::downHitPoint, getBarkWord());
     }
 
-    // TODO done itoryu 修行++: 内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
+    // #1on1: JDBCドライバーとは？ (2026/01/27)
+    // RDBにアクセスするためのインターフェースとその実装ライブラリ。
+    // O/RマッパーとJDBCドライバーの役割の違い。
+
+    // done itoryu 修行++: 内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
     // なんとかして、protectedに戻しましょう。(カプセル化としてpublicは良いことではない)
     // (ここは...downHitPoint()とはレベルが全然違うシンプルな話)
     // #1on1: ColorBoxインターフェースところの話とつなげたのは素晴らしい (2026/01/13)
     // ただ、ここの修行は、半隠蔽ではなく、完全隠蔽で（＾＾／。
+    // #1on1: こっちは参照のみなので、単なる「引数/戻り値デザイン」 (2026/01/27)
     protected abstract String getBarkWord();
 
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
-    // TODO done itoryu 修行#: 同じように内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
+    // done itoryu 修行#: 同じように内部用メソッドがpublicにせざるをえなくなったけど... by jflute (2025/12/23)
     // なんとかして、protectedに戻しましょう。(こっちは内部を壊せるメソッドなので絶対にpublicにしたくない)
     // (ここは難しいので、stepを進めながら、思いついたときにやるような感じでOK)
     protected void downHitPoint() {

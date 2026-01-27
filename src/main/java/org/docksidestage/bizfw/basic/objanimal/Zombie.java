@@ -65,6 +65,8 @@ public class Zombie extends Animal {
         // Animalでは、BarkingProcess で扱ってるけど、
         // Zombieの場合は実体が ZombieBarkingProcess になる。 
         // _/_/_/_/_/_/_/_/
+        // TODO itoryu せっかくなので、引数を準備するコードをコピーしないで済むようにしましょう by jflute (2026/01/27)
+        // downHitPointのコールバックやbarkWordの準備の仕方に依存してAnimalと同期をしないといけなくなってる。
         return new BarkingProcess(this::downHitPoint, getBarkWord()) {
             @Override
             protected void breatheIn() {
@@ -73,7 +75,7 @@ public class Zombie extends Animal {
             }
         };
     }
-
+    
     // #1on1: ↑のzombieDiaryの参照が、ちょっとトリッキーに見える(by itoryuさん)との話 (2025/12/23)
     // 確かに、二段上のリソースを直接参照している感はある。ただ、よく使われるやり方ではある。
     // もし、これを避けたい場合は、以下のやり方:

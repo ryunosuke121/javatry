@@ -32,7 +32,7 @@ import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
 import org.docksidestage.javatry.basic.st6.os.St6Windows;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO itoryu [読み物課題] こうはい extends せんぱい by jflute (2025/12/23)
+// done itoryu [読み物課題] こうはい extends せんぱい by jflute (2025/12/23)
 // https://jflute.hatenadiary.jp/entry/20131124/extendsmaster
 
 /**
@@ -566,5 +566,6 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // なんか変なコードになってしまった。なのでもしかしたらサブクラスとして不適切なのかもしれない。
         // でも継承先が独自のプロパティを持つべきではないっていうのはやり過ぎ感あるので、結局よくわからない。
         // _/_/_/_/_/_/_/_/_/_/
+        // TODO jflute 次回1on1でふぉろー (2026/01/27)
     }
 }

@@ -7,8 +7,12 @@ public class BarkingProcess {
 
     private static final Logger logger = LoggerFactory.getLogger(BarkingProcess.class);
 
-    protected Runnable downHitPointFunction;
-    protected String barkWord;
+    // #1on1: Animal依存がなくなったので汎用的になった (2026/01/27)
+    // #1on1: Runnable のお話 (2026/01/27)
+    // TODO itoryu ここまできたらfinal付けてしっかりimmutableにしましょう by jflute (2026/01/27)
+    // #1on1: Javaでのimmutableのさじ加減の話も (DBFluteでのfinalのお話も) (2026/01/27)
+    protected final Runnable downHitPointFunction;
+    protected final String barkWord;
 
     public BarkingProcess(Runnable downHitPointFunction, String barkWord) {
         this.downHitPointFunction = downHitPointFunction;
