@@ -259,7 +259,7 @@ public class Step07ExceptionTest extends PlainTestCase {
             // - - - - - - - - - -
             // スーパーカーを購入しようとしましたが、
             // 工場でハンドルを組み立て中、
-            // SpecialScrewを作成しようとしたときに、可愛い顔はもうサポート切れで作成できなかったみたいです。
+            // SpecialScrewを作成しようとしたときに、可愛い顔(?)はもうサポート切れで作成できなかったみたいです。
             // _/_/_/_/_/_/_/_/_/_/
         }
     }
@@ -297,7 +297,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         try {
             helpThrowIllegalState();
         } catch (IllegalStateException e) {
-            throw new St7ConstructorChallengeException("Failed to do something.");
+            throw new St7ConstructorChallengeException("Failed to do something. " + e.getMessage(), e);
         }
     }
 
@@ -319,8 +319,8 @@ public class Step07ExceptionTest extends PlainTestCase {
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // Write here. (ここに書いてみましょう)
         // - - - - - - - - - -
-        //
-        //
+        // Exceptionはアプリケーション内で想定、対処することができる異常状態のことで、
+        // Errorはアプリケーションで対処することができない、もしくはするべきでない異常状態のこと。
         //
         // _/_/_/_/_/_/_/_/_/_/
     }
