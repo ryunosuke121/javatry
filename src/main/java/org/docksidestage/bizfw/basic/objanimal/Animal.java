@@ -18,23 +18,17 @@ package org.docksidestage.bizfw.basic.objanimal;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // #1on1: プログラミングデザインは、部屋の肩付け(模様替え)と同じ感覚 (2025/12/23)
 
 // TODO itoryu javatryのjavadoc流に、authorの追加を。全体的にstep6のクラス見直してください by jflute (2026/01/27)
+
 /**
  * The object for animal(動物).
- * @author jflute
+ * @author jflute, ryunosuke.ito
  */
 public abstract class Animal implements Loudable {
-
-    // ===================================================================================
-    //                                                                          Definition
-    //                                                                          ==========
-    // TODO itoryu もうすでにunused by jflute (2026/01/27)
-    private static final Logger logger = LoggerFactory.getLogger(Animal.class);
+    // TODO done itoryu もうすでにunused by jflute (2026/01/27)
 
     // ===================================================================================
     //                                                                           Attribute
