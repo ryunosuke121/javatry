@@ -9,7 +9,7 @@ public class BarkingProcess {
 
     // #1on1: Animal依存がなくなったので汎用的になった (2026/01/27)
     // #1on1: Runnable のお話 (2026/01/27)
-    // TODO done itoryu ここまできたらfinal付けてしっかりimmutableにしましょう by jflute (2026/01/27)
+    // done itoryu ここまできたらfinal付けてしっかりimmutableにしましょう by jflute (2026/01/27)
     // #1on1: Javaでのimmutableのさじ加減の話も (DBFluteでのfinalのお話も) (2026/01/27)
     protected final Runnable downHitPointFunction;
     protected final String barkWord;

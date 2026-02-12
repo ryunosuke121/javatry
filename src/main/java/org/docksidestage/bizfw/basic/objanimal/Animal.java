@@ -28,7 +28,7 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
  * @author jflute, ryunosuke.ito
  */
 public abstract class Animal implements Loudable {
-    // TODO done itoryu もうすでにunused by jflute (2026/01/27)
+    // done itoryu もうすでにunused by jflute (2026/01/27)
 
     // ===================================================================================
     //                                                                           Attribute

@@ -36,6 +36,7 @@ public class Zombie extends Animal {
 
     @Override
     protected int getInitialHitPoint() {
+        // #1on1: マジックナンバー、時々必要かもだけど、極力避けたい (2026/02/12)
         return -1; // magic number for infinity hit point
     }
 

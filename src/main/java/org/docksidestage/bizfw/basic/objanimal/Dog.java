@@ -42,7 +42,7 @@ public class Dog extends Animal implements FastRunner {
     public String getBarkWord() {
         return "wan"; // bow? in English
     }
-
+    
     // ===================================================================================
     //                                                                              Runner
     //                                                                              ======
