@@ -122,6 +122,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         log(sea); // your answer? => false
     }
 
+    // TODO jflute 次回1on1ここから (2026/02/12)
     // ===================================================================================
     //                                                                         NullPointer
     //                                                                         ===========
