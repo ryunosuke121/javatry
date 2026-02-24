@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The object for cat(猫).
  * @author jflute
+ * @author ryunosuke.ito
  */
 public class Cat extends Animal implements FastRunner, Climbable {
 

@@ -20,6 +20,7 @@ import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 /**
  * The object for zombie(ゾンビ).
  * @author jflute
+ * @author ryunosuke.ito
  */
 public class Zombie extends Animal {
 
@@ -76,7 +77,7 @@ public class Zombie extends Animal {
             }
         };
     }
-    
+
     // #1on1: ↑のzombieDiaryの参照が、ちょっとトリッキーに見える(by itoryuさん)との話 (2025/12/23)
     // 確かに、二段上のリソースを直接参照している感はある。ただ、よく使われるやり方ではある。
     // もし、これを避けたい場合は、以下のやり方:

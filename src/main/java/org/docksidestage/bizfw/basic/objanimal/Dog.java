@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The object for dog(犬).
  * @author jflute
+ * @author ryunosuke.ito
  */
 public class Dog extends Animal implements FastRunner {
 
@@ -42,7 +43,7 @@ public class Dog extends Animal implements FastRunner {
     public String getBarkWord() {
         return "wan"; // bow? in English
     }
-    
+
     // ===================================================================================
     //                                                                              Runner
     //                                                                              ======
