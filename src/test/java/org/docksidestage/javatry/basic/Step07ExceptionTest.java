@@ -165,6 +165,7 @@ public class Step07ExceptionTest extends PlainTestCase {
             String sea = "mystic";
             String land = !!!sea.equals("mystic") ? null : "oneman";
             String piari = !!!sea.equals("mystic") ? "plaza" : null;
+            // #1on1: ステートメントスタイルの言語でも、行を意識することある (2026/02/24)
             int landLength = land.length();
             int piariLength = piari.length();
             int sum = landLength + piariLength;
@@ -172,6 +173,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (NullPointerException e) {
             log(e);
         }
+        // #1on1: Java17とかだと、NullPoの例外メッセージでnullだった変数を教えてくれる話 (2026/02/24)
     }
 
     // ===================================================================================
@@ -182,7 +184,20 @@ public class Step07ExceptionTest extends PlainTestCase {
      * (new java.io.File(".") の canonical path を取得してログに表示、I/Oエラーの時はメッセージとスタックトレースを代わりに表示)
      */
     public void test_exception_checkedException_basic() {
-
+        // #1on1: チェック例外とは？ (2026/02/24)
+        // まず、流行ってない。なのでサクッと。ただ、学びがあるので少々深掘りを。
+        // Javaの構造的には、デフォルトはチェック例外で、RuntimeException(とError)だけが特別。
+        // コンセプト的には理にかなってる。catchの義務がコンパイルセーフになっている。
+        // 形骸化のパターンが多くて印象悪い。発生確率がとても低いケースでは形骸化しやすい。
+        // Lambda式との相性の悪さ、身も蓋も無いUncheckedIOExceptionの登場。
+        // ただ、やはりコンセプト的には理にかなってると言えるので、馴染ませ方に失敗したのかな？？？
+        // Go言語の例。Kotlinの例。DBFluteの例。
+        //
+        // 教訓:
+        // チェック例外を捨てているのであれば、人間がちゃんと例外catchをすべきところで忘れないように。
+        // throwする側はJavaDocなどで明示、呼び出す側は呼び出したメソッドでthrowされるものを意識。
+        //
+        // よもやま: 抜けの話から瑕疵担保の話。
         try {
             String path = new File(".").getCanonicalPath();
             log(path);
@@ -191,6 +206,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         }
     }
 
+    // TODO jflute 次回1on1ふぉろーここから (2026/02/24)
     // ===================================================================================
     //                                                                               Cause
     //                                                                               =====

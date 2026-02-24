@@ -67,8 +67,9 @@ public class Zombie extends Animal {
         // Animalでは、BarkingProcess で扱ってるけど、
         // Zombieの場合は実体が ZombieBarkingProcess になる。
         // _/_/_/_/_/_/_/_/
-        // TODO done itoryu せっかくなので、引数を準備するコードをコピーしないで済むようにしましょう by jflute (2026/01/27)
+        // done itoryu せっかくなので、引数を準備するコードをコピーしないで済むようにしましょう by jflute (2026/01/27)
         // downHitPointのコールバックやbarkWordの準備の仕方に依存してAnimalと同期をしないといけなくなってる。
+        // #1on1: ラップスタイルを採用。これはこれで一つのテクニック。 (2026/02/24)
         return new BarkingProcess(super.createBarkingProcess()) {
             @Override
             protected void breatheIn() {
@@ -77,6 +78,27 @@ public class Zombie extends Animal {
             }
         };
     }
+
+    // #1on1: newメソッド方式の例 (2026/02/24)
+    // メソッドの引数の個数などには依存するけど、そこは変化があってもコンパイルエラーで追従できる。
+    // それら引数の仕入れ元 (準備の仕方) には依存しない。
+    //
+    // Animal側:
+    //protected BarkingProcess newBarkingProcess(Runnable downHitPointFunction, String barkWord) {
+    //    return new BarkingProcess(downHitPointFunction, barkWord);
+    //}
+    //
+    // Zombie側:
+    //@Override
+    //protected BarkingProcess newBarkingProcess(Runnable downHitPointFunction, String barkWord) {
+    //    return new BarkingProcess(downHitPointFunction, barkWord) {
+    //        @Override
+    //        protected void breatheIn() {
+    //            super.breatheIn();
+    //            zombieDiary.countBreatheIn();
+    //        }
+    //    };
+    //}
 
     // #1on1: ↑のzombieDiaryの参照が、ちょっとトリッキーに見える(by itoryuさん)との話 (2025/12/23)
     // 確かに、二段上のリソースを直接参照している感はある。ただ、よく使われるやり方ではある。

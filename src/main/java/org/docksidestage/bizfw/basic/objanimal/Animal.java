@@ -21,7 +21,7 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 
 // #1on1: プログラミングデザインは、部屋の肩付け(模様替え)と同じ感覚 (2025/12/23)
 
-// TODO done itoryu javatryのjavadoc流に、authorの追加を。全体的にstep6のクラス見直してください by jflute (2026/01/27)
+// done itoryu javatryのjavadoc流に、authorの追加を。全体的にstep6のクラス見直してください by jflute (2026/01/27)
 
 /**
  * The object for animal(動物).
@@ -53,7 +53,7 @@ public abstract class Animal implements Loudable {
     public BarkedSound bark() {
         return createBarkingProcess().execute();
     }
-
+    
     protected BarkingProcess createBarkingProcess() {
         // #1on1: コールバック少しだけstep8の先取り (2026/01/27)
         // 無名インナークラスから、Lambda式から、メソッド参照。
@@ -65,7 +65,7 @@ public abstract class Animal implements Loudable {
         // #1on1: Javaのvarのお話も (2026/01/27)
         return new BarkingProcess(this::downHitPoint, getBarkWord());
     }
-
+    
     // #1on1: JDBCドライバーとは？ (2026/01/27)
     // RDBにアクセスするためのインターフェースとその実装ライブラリ。
     // O/RマッパーとJDBCドライバーの役割の違い。
