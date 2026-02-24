@@ -21,7 +21,7 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 
 // #1on1: プログラミングデザインは、部屋の肩付け(模様替え)と同じ感覚 (2025/12/23)
 
-// TODO itoryu javatryのjavadoc流に、authorの追加を。全体的にstep6のクラス見直してください by jflute (2026/01/27)
+// TODO done itoryu javatryのjavadoc流に、authorの追加を。全体的にstep6のクラス見直してください by jflute (2026/01/27)
 
 /**
  * The object for animal(動物).

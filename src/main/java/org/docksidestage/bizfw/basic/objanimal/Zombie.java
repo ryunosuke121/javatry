@@ -65,11 +65,11 @@ public class Zombie extends Animal {
         // ZombieBarkingProcess extends BarkingProcess
         //
         // Animalでは、BarkingProcess で扱ってるけど、
-        // Zombieの場合は実体が ZombieBarkingProcess になる。 
+        // Zombieの場合は実体が ZombieBarkingProcess になる。
         // _/_/_/_/_/_/_/_/
-        // TODO itoryu せっかくなので、引数を準備するコードをコピーしないで済むようにしましょう by jflute (2026/01/27)
+        // TODO done itoryu せっかくなので、引数を準備するコードをコピーしないで済むようにしましょう by jflute (2026/01/27)
         // downHitPointのコールバックやbarkWordの準備の仕方に依存してAnimalと同期をしないといけなくなってる。
-        return new BarkingProcess(this::downHitPoint, getBarkWord()) {
+        return new BarkingProcess(super.createBarkingProcess()) {
             @Override
             protected void breatheIn() {
                 super.breatheIn();

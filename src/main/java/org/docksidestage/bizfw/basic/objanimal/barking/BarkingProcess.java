@@ -19,6 +19,11 @@ public class BarkingProcess {
         this.barkWord = barkWord;
     }
 
+    protected BarkingProcess(BarkingProcess source) {
+        this.downHitPointFunction = source.downHitPointFunction;
+        this.barkWord = source.barkWord;
+    }
+
     public BarkedSound execute() {
         breatheIn();
         prepareAbdominalMuscle();
