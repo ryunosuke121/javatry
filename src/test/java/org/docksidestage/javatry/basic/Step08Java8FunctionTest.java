@@ -53,6 +53,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log("...Executing named class callback(!?)");
         helpCallbackConsumer(new St8BasicConsumer(title));
 
+        // #1on1: A→B
+        //        A←B (A'←B)
         log("...Executing anonymous class callback");
         helpCallbackConsumer(new Consumer<String>() {
             public void accept(String stage) {
@@ -60,6 +62,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             }
         });
 
+        // #1on1: 推論の話 (2026/03/27)
         log("...Executing lambda block style callback");
         helpCallbackConsumer(stage -> {
             log(stage + ": " + title);
@@ -145,6 +148,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             return "broadway";
         });
 
+        // #1on1: Block or Expression, 見た目を調整する小テクニック (2026/03/27)
         helpCallbackSupplier(() -> "dockside"); // land
 
         helpCallbackSupplier(() -> { // piari
@@ -180,6 +184,11 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         // 少なくとも、文法に組み込まれてるか、ただのクラスなのか？の違いがある。
         // Javaだと、徹底するのは難しいので、適所で使うみたいなことが多い印象。
         // くぼ個人の、フレームワークの中でのOptionalの話。
+        
+        // #1on1: JavaでOptionalが入ったのが2015年あたり (2026/03/27)
+        // 30年のうち20年Optionalなかった。
+        // Optionalのという発明自体は、もっと昔から。
+        // もっと早く導入されなかったのか？？？話
     }
 
     /**
@@ -260,6 +269,14 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log(dstore); // your answer? => *no reason: someone was not present
         log(amba); // your answer? => *no reason: someone was not present
         log(miraco); // your answer? => 12
+        
+        // #1on1 map()/flatMap, flatMapのflatは？ (2026/03/27)
+        // 二重配列をどうのこうの？ by itoryuさん
+        // // map() and flatMap()
+        // https://dbflute.seasar.org/ja/manual/topic/programming/java/java8/mapandflat.html
+        // flatの意味がわかったぞー
+        // このエクササイズのベタ書きとmap/flatMapのお話。
+        // どこで途切れたか？を気にしなくて良い場合と気にしたい場合。
     }
 
     /**
@@ -279,6 +296,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             sea = e.getMessage();
         }
         log(sea); // your answer? => wave
+        
+        // TODO jflute 次回1on1, orElseThrow()ジレンマのお話 (2026/03/27)
     }
 
     // ===================================================================================
