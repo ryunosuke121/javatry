@@ -285,7 +285,10 @@ public class Step08Java8FunctionTest extends PlainTestCase {
      */
     public void test_java8_optional_orElseThrow() {
         Optional<St8Member> optMember = new St8DbFacade().selectMember(2);
-        St8Member member = optMember.orElseThrow(() -> new IllegalStateException("over"));
+        St8Member member = optMember.orElseThrow(() -> {
+            return new IllegalStateException("over");
+        });
+        
         String sea = "the";
         try {
             String reason = member.getWithdrawal().map(wdl -> wdl.oldgetPrimaryReason()).orElseThrow(() -> {
@@ -297,7 +300,55 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         }
         log(sea); // your answer? => wave
         
-        // TODO jflute 次回1on1, orElseThrow()ジレンマのお話 (2026/03/27)
+        // done jflute 次回1on1, orElseThrow()ジレンマのお話 (2026/03/27)
+        // orElseThrow()自体のお話を振り返り。
+        // 似たメソッドとしては、実は optMember.get(); がいる。
+        // 組み込みの例外を投げるのか？自分で例外を組み立てるのか？の違い。
+        //
+        // orElseThrow()の使い所:
+        // やっていることはなければ例外なので、チェックなしnullPoと何が違う？
+        // orElseThrow()自分で例外を組み立てるのか？の違い。
+        // どのみち例外で落としてることには変わりがない。
+        // つまり、戻り値がなかったら論外(バグor業務例外)と言っても良いような場面。
+        //
+        // チェックなしnullPoで落とすのは何が微妙？
+        //  → 想定してないバグだと思っちゃう by itoryu
+        // このケースで落ちた場合は、デバッグする可能性が大。
+        // ってときに、nullPoだとデバッグ情報がなさ過ぎ。(スタックトレースも原因箇所とズレるし)
+        //
+        // optMember.get(); (問答無用get()) で落とすのは何が微妙？
+        //   → 同じくメッセージをいじれない by itoryu
+        // 情報量がほぼnullPoとかわらない。
+        // なので、(isPresent()なしの) 問答無用get() は、教科書的にはやらない方が良いと言われる。
+        // Optionalのコンセプトを壊してしまうから。
+        //
+        // だから、(教科書的には) orElseThrow() を使いましょう。
+        // (業務的に絶対存在するという場面であれば)
+        //
+        // ↑このセオリーがわかっていれば、
+        // orElseThrow(() -> new IllegalStateException("over"));
+        // みたいな orElseThrow() が微妙であることが理解できるはず。
+        //
+        // よもやま: 許される実装じゃなくてその場で論理的に最適な実装 (2026/04/07)
+        //
+        //
+        // 必ず存在する場面のOptionalが、よく発生するケースの場合...
+        // orElseThrow()でまじめにthrowしていくのが確かに面倒ではある。
+        // (Optionalを使わない実装だった時、チェックしないレベルのもの)
+        //
+        // A. ちゃんと教科書通り orElseThrow() をまじめに実装していく (合ってない問答無用get()を防ぎたい)
+        // B. もうこのケースなら問答無用get()でもいいのでは？ (Cを防ぎたい)
+        // (C. 許されるために orElseThrow() を使うけど、形骸化orElseThrow()になる)
+        //
+        // DBFluteのConditionBeanの例で例えてみた。特にリレーションシップの関連テーブルのget。
+        // フレームワークがthrowする方が、よりデバッグ情報量がある話。
+        // DBFluteのOptionalの話。
+        //
+        // Java10から、orElseThrow(引数なし)というメソッドが追加された。
+        // get()と全く処理が同じ。
+        // "B" の人からすると、get()は怒られるのでorElseThrow(引数なし)使おっと、になる。
+        //
+        // #1on1: 文法だけの論理じゃなく、現実感の論理を混ぜて物事を考えることができると良い (2026/04/07)
     }
 
     // ===================================================================================
@@ -326,6 +377,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log(land); // your answer? => [broadway, dockside]
     }
 
+    // TODO jflute 次回1on1, Stream API (2026/04/07)
     /**
      * What string is sea, variables at the method end? <br>
      * (メソッド終了時の変数 sea の中身は？)
